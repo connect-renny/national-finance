@@ -67,7 +67,7 @@
 // ─── Arabic UI text: Cairo (variable 200–1000, Google Fonts, self-hosted) ──
 // Used for the Arabic language switch in the header and drawer (--arabic-font).
 @font-face {
-  font-family: "Cairo";
+  font-family: Cairo;
   src: url("../fonts/Cairo-Arabic.woff2") format("woff2");
   font-weight: 200 1000;
   font-style: normal;
@@ -79,7 +79,7 @@
 }
 
 @font-face {
-  font-family: "Cairo";
+  font-family: Cairo;
   src: url("../fonts/Cairo-Latin.woff2") format("woff2");
   font-weight: 200 1000;
   font-style: normal;

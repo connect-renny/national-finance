@@ -344,8 +344,21 @@ Built in, and worth not undoing:
 
 ## RTL
 
-Set `dir="rtl"` on `<html>` and swap `bootstrap.min.css` for
-`bootstrap.rtl.min.css` (both are vendored). The kit's own spacing utilities
+The Arabic site lives in `ar/` and is **generated** — don't edit those files.
+Edit the English page, then run:
+
+```bash
+python scripts/build-arabic.py extract   # lists new strings in scripts/i18n/strings.json
+python scripts/build-arabic.py build     # writes ar/*.html, reports untranslated strings
+```
+
+Translations are in `scripts/i18n/ar.json` (English → Arabic; currently
+machine translation, pending the client's copy). Strings set from JS live in
+the `T` table at the top of `assets/js/main.js`. Arabic pages use Cairo for
+everything (`:root:lang(ar)` in `base/_root.scss`).
+
+Under the hood: `dir="rtl"` on `<html>` and `bootstrap.rtl.min.css` instead of
+`bootstrap.min.css` (both are vendored). The kit's own spacing utilities
 use logical properties (`padding-inline-start`, not `padding-left`), so they
 mirror themselves — as do the drawer's slide direction and the select's
 chevron.

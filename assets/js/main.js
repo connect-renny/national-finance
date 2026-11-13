@@ -10,6 +10,28 @@
   root.classList.remove("no-js");
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ─── UI strings set from script (the Arabic pages live in ar/) ───────── */
+  const isAr = root.lang === "ar";
+  const T = isAr
+    ? {
+        openMenu: "فتح القائمة",
+        closeMenu: "إغلاق القائمة",
+        readMore: "اقرأ المزيد",
+        readLess: "عرض أقل",
+        ext: "داخلي",
+        page: (p, n) => `الصفحة ${p} من ${n}`,
+        thanks: "شكراً لك. تم تسجيل طلبك بشكل آمن. الرقم المرجعي:",
+      }
+    : {
+        openMenu: "Open menu",
+        closeMenu: "Close menu",
+        readMore: "Read more",
+        readLess: "Read less",
+        ext: "Ext",
+        page: (p, n) => `Page ${p} of ${n}`,
+        thanks: "Thank you. Your submission has been logged securely. Reference:",
+      };
   const App = (window.App = { lenis: null, sliders: {} });
 
   /* ─── Smooth scroll ──────────────────────────────────────────────────── */
@@ -66,7 +88,7 @@
       drawer.setAttribute("aria-hidden", String(!open));
       toggles.forEach((t) => {
         t.setAttribute("aria-expanded", String(open));
-        t.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        t.setAttribute("aria-label", open ? T.closeMenu : T.openMenu);
       });
       lockScroll(open);
 
@@ -159,7 +181,7 @@
       const open = btn.getAttribute("aria-expanded") !== "true";
       btn.setAttribute("aria-expanded", String(open));
       target.classList.toggle("is-open", open);
-      if (label) label.textContent = open ? btn.dataset.labelOpen || "Read less" : btn.dataset.labelClosed || "Read more";
+      if (label) label.textContent = open ? btn.dataset.labelOpen || T.readLess : btn.dataset.labelClosed || T.readMore;
       // Lenis caches the page height; let it re-measure once the panel settles.
       if (App.lenis) setTimeout(() => App.lenis.resize(), 550);
     });
@@ -182,8 +204,9 @@
         .split(/[\s-]+/)
         .filter((w) => w && w.toLowerCase() !== "al")
         .slice(0, 2)
-        .map((w) => w[0].toUpperCase())
-        .join("");
+        // Arabic surnames carry the article: البوسعيدي -> ب
+        .map((w) => w.replace(/^ال(?=..)/, "")[0].toUpperCase())
+        .join(isAr ? " " : "");
 
     const render = (btn) => {
       const d = btn.dataset;
@@ -193,7 +216,7 @@
       field("branch").textContent = d.branch;
       const link = document.createElement("a");
       link.href = `tel:${d.ext}`;
-      link.textContent = `Ext ${d.ext}`;
+      link.textContent = `${T.ext} ${d.ext}`;
       field("ext").replaceChildren(link);
 
       const photo = field("photo");
@@ -329,7 +352,7 @@
       tiles.forEach((t) => (t.hidden = Number(t.dataset.page) !== page));
       prev.disabled = page <= 1;
       next.disabled = page >= pages;
-      status.textContent = `Page ${page} of ${pages}`;
+      status.textContent = T.page(page, pages);
       // Restart the stagger-in animation.
       newsGrid.classList.remove("is-ready");
       void newsGrid.offsetWidth;
@@ -419,7 +442,7 @@
       submit.classList.add("is-sending");
       setTimeout(() => {
         const ref = `TH-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9000) + 1000)}`;
-        status.innerHTML = `<i class="bi bi-shield-check" aria-hidden="true"></i><span>Thank you. Your submission has been logged securely. Reference: <strong>${ref}</strong></span>`;
+        status.innerHTML = `<i class="bi bi-shield-check" aria-hidden="true"></i><span>${T.thanks} <strong dir="ltr">${ref}</strong></span>`;
         ceoForm.reset(); // while still .is-sending, so the reset handler keeps the status
         status.hidden = false;
         submit.classList.remove("is-sending");

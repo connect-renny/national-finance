@@ -82,7 +82,7 @@
   --display-font:
     "Foundry Monoline", "Rubik Variable", system-ui, -apple-system, "Segoe UI",
     roboto, sans-serif;
-  --arabic-font: "Cairo", "Rubik Variable", tahoma, sans-serif;
+  --arabic-font: Cairo, "Rubik Variable", tahoma, sans-serif;
   --body-font: var(--primary-font);
   --heading-font: var(--primary-font);
   --mono-font: ui-monospace, sfmono-regular, "SF Mono", consolas, monospace;
@@ -227,4 +227,25 @@
   --shadow-header: 0 2px 8px rgb(0 0 0 / 50%);
 
   color-scheme: dark;
+}
+
+// ─── Arabic pages (ar/*.html) ──────────────────────────────────────────────
+// Cairo carries both scripts, so Latin brand words (FinnOne, PDF, IFRS 9)
+// stay in the same family. Arabic letters must never be tracked out.
+:root:lang(ar) {
+  --primary-font: var(--arabic-font);
+  --display-font: var(--arabic-font);
+  --body-font: var(--arabic-font);
+  --heading-font: var(--arabic-font);
+}
+
+:lang(ar) {
+  letter-spacing: 0 !important;
+}
+
+// Arabic letters stack taller than Latin, so the tight Latin heading
+// leading (1–1.1) makes lines collide. :root:lang(ar) outranks the
+// single-class heading rules.
+:root:lang(ar) :is(h1, h2, h3, h4, h5, h6) {
+  line-height: 1.35;
 }
