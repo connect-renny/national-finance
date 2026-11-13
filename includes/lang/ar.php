@@ -23,6 +23,7 @@ return [
     'quick_access'    => 'وصول سريع',
     'copy'            => '© البوابة الداخلية للوطنية للتمويل، ',
     'tagline'         => 'شريك النمو',
+    'back_to_top'     => 'العودة إلى الأعلى',
     'switch_lang'     => 'en',
     'switch_label'    => 'English',
     'switch_href'     => '../',

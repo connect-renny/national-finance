@@ -58,6 +58,17 @@
       </aside>
     </div>
 
+    <!-- ═══════════════════════ Back to top ═══════════════════════ -->
+    <!-- Progress ring: main.js sets --scroll-progress; the % gives way to the arrow near the bottom. -->
+    <button class="return-top" id="returnTop" type="button" aria-label="<?= e($t['back_to_top']) ?>">
+      <span class="return-top__inner">
+        <span class="return-top__value" aria-hidden="true">0%</span>
+        <svg class="return-top__arrow" viewBox="0 0 12 14" fill="none" aria-hidden="true" focusable="false">
+          <path d="M6 13.2V1.4M1.2 6.2 6 1.4l4.8 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    </button>
+
     <script src="<?= $a ?>assets/js/bootstrap.bundle.min.js" defer></script>
 <?php if ($useSwiper): ?>
     <script src="<?= $a ?>assets/js/swiper-bundle.min.js" defer></script>

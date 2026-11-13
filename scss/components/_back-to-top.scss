@@ -1,47 +1,104 @@
 @use "../abstracts" as *;
 
-// V5 faded this in with an inline opacity style, which left an invisible but
-// still-clickable button covering the corner. It's a class + visibility now,
-// so it's genuinely gone until you've scrolled.
+// Back-to-top button that doubles as a scroll-progress ring. main.js sets
+// --scroll-progress from the scroll position; the conic gradient fills the
+// ring, and over the last few per cent the number gives way to the arrow.
+//
+// Pinned with physical `right` (not inset-inline-end) on purpose: the client
+// wants it bottom-right on the Arabic pages too.
 .return-top {
-  @include flex-center;
+  --scroll-progress: 0%;
+  --ring-inset: 2px; // white gap between the button edge and the ring
+  --ring-width: 2px;
+
+  display: grid;
+  place-items: center;
   position: fixed;
-  bottom: 1rem;
-  inset-inline-end: 1rem;
+  right: 34px;
+  bottom: 24px;
   z-index: var(--z-sticky);
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   padding: 0;
   border: 0;
-  background: var(--color-brand);
   border-radius: var(--radius-circle);
+  background: var(--white);
   box-shadow: var(--shadow-md);
+
+  // The progress ring, pulled in from the edge by --ring-inset. The inner
+  // disc covers its middle, leaving a --ring-width band.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: var(--ring-inset);
+    border-radius: inherit;
+    background: conic-gradient(
+      var(--color-accent) var(--scroll-progress),
+      rgba(var(--color-brand-rgb), 0.1) var(--scroll-progress) // token is comma-separated
+    );
+  }
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(12px);
-  @include transEase((opacity, visibility, transform));
+  pointer-events: none;
+  transform: scale(0.6) translateY(12px);
+  @include transEase((opacity, visibility, transform), var(--ease-spring), 0.35s);
   @include focus-ring;
-
-  img,
-  svg {
-    width: 20px;
-    height: 20px;
-    @include transEase(transform);
-  }
 
   &.is-visible {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    pointer-events: auto;
+    transform: none;
   }
 
-  @include hover {
-    background: var(--color-accent);
+  @include mq-down(sm) {
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+  }
+}
 
-    img,
-    svg {
-      transform: translateY(-3px);
-    }
+.return-top__inner {
+  position: relative; // above the ring pseudo-element
+  display: grid;
+  place-items: center;
+  width: calc(100% - 2 * (var(--ring-inset) + var(--ring-width)));
+  height: calc(100% - 2 * (var(--ring-inset) + var(--ring-width)));
+  border-radius: var(--radius-circle);
+  background: var(--white);
+  color: var(--color-brand);
+  @include transEase((background-color, color));
+
+  .return-top:hover &,
+  .return-top:focus-visible & {
+    background: var(--color-accent);
+    color: var(--white);
+  }
+}
+
+.return-top__value {
+  // Keep "45%" in this order on RTL pages too.
+  direction: ltr;
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.return-top__arrow {
+  display: none;
+  width: 12px;
+  height: 14px;
+}
+
+.return-top.is-complete {
+  .return-top__value {
+    display: none;
+  }
+
+  .return-top__arrow {
+    display: block;
   }
 }

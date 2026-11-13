@@ -23,6 +23,7 @@ return [
     'quick_access'    => 'Quick Access',
     'copy'            => '© National Finance Intranet, ',
     'tagline'         => 'Partner for Growth',
+    'back_to_top'     => 'Back to top',
     // Language switch: points at the same page in the other language.
     'switch_lang'     => 'ar',
     'switch_label'    => 'العربية',

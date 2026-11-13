@@ -69,6 +69,38 @@
     update();
   }
 
+  /* ─── Back to top + scroll-progress ring ─────────────────────────────── */
+  const returnTop = document.getElementById("returnTop");
+  if (returnTop) {
+    const value = returnTop.querySelector(".return-top__value");
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      const scrollable = root.scrollHeight - root.clientHeight;
+      const percent = scrollable > 0 ? Math.min(100, Math.max(0, Math.round((y / scrollable) * 100))) : 0;
+      returnTop.classList.toggle("is-visible", y >= 100);
+      returnTop.classList.toggle("is-complete", percent >= 96);
+      returnTop.style.setProperty("--scroll-progress", `${percent}%`);
+      if (value) value.textContent = `${percent}%`;
+      ticking = false;
+    };
+    const queue = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    update();
+
+    returnTop.addEventListener("click", () => {
+      // Lenis owns the scroll position; ask it so the two don't fight.
+      if (App.lenis) App.lenis.scrollTo(0);
+      else window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
+
   /* ─── Mobile drawer ──────────────────────────────────────────────────── */
   const drawer = document.getElementById("mobileDrawer");
   const toggles = document.querySelectorAll('[aria-controls="mobileDrawer"]');
