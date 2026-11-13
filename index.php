@@ -1,104 +1,15 @@
-<!doctype html>
-<html lang="en" dir="ltr" class="no-js">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-    <title>Al Mabraz | National Finance Intranet</title>
-    <meta name="description" content="Al Mabraz — the National Finance employee intranet: news, events, CEO messages, policies and quick access to internal systems." />
-    <meta name="theme-color" content="#4b0a78" />
-
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
-
-    <link rel="preload" href="assets/fonts/FoundryFormSans-Medium.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/fonts/FoundryMonoline-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="assets/images/hero-01-portal-bg-mobile.jpg" as="image" media="(max-width: 575.98px)" />
-    <link rel="preload" href="assets/images/hero-01-portal-bg.jpg" as="image" media="(min-width: 576px)" />
-
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <div class="site-shell">
-      <!-- ═══════════════════════ Header ═══════════════════════ -->
-      <header class="site-header" id="siteHeader">
-        <div class="site-header__bar">
-          <a class="site-logo" href="index.html" aria-label="National Finance — home">
-            <img src="assets/images/national-finance-logo.png" alt="National Finance" width="119" height="78" />
-          </a>
-
-          <nav class="primary-nav" aria-label="Main">
-            <ul class="primary-nav__list">
-              <li>
-                <a class="primary-nav__link" href="ceo-message.html">
-                  <img src="assets/images/icon-nav-ceo-message.png" alt="" width="24" height="24" />CEO Message
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="employee-directory.html">
-                  <img src="assets/images/icon-nav-employee-directory.png" alt="" width="24" height="24" />Employee Directory
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="policies.html">
-                  <img src="assets/images/icon-nav-policies.png" alt="" width="24" height="24" />Policies
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="tahadath.html">
-                  <img src="assets/images/icon-nav-tahadath.png" alt="" width="24" height="24" />Tahadath
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          <div class="header-tools">
-            <a class="header-bell" href="#" aria-label="Notifications (new)">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bellGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#2a00b0" />
-                    <stop offset="1" stop-color="#7a0a8c" />
-                  </linearGradient>
-                </defs>
-                <path fill="url(#bellGrad)" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7.3-5.7-1.3-1.6V10a6 6 0 0 0-4.5-5.8V3.5a1.5 1.5 0 0 0-3 0v.7A6 6 0 0 0 6 10v4.7l-1.3 1.6A1 1 0 0 0 5.5 18h13a1 1 0 0 0 .8-1.7Z" />
-              </svg>
-              <span class="header-bell__dot"></span>
-            </a>
-
-            <div class="dropdown header-user">
-              <button class="header-user__toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="My account">
-                <img src="assets/images/user-avatar.jpg" alt="" width="44" height="44" />
-                <span class="header-user__name">Welcome, <strong>Mohammed!</strong></span>
-                <i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person" aria-hidden="true"></i>My Profile</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-gear" aria-hidden="true"></i>Settings</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right" aria-hidden="true"></i>Sign Out</a></li>
-              </ul>
-            </div>
-
-            <a class="header-lang" href="ar/index.html" lang="ar" hreflang="ar"><span>العربية</span></a>
-
-            <button class="nav-toggle" type="button" aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-
-          <a class="al-mabraz" href="index.html" aria-label="Al Mabraz — home">
-            <img src="assets/images/al-mabraz-logo.png" alt="Al Mabraz" width="150" height="65" />
-          </a>
-        </div>
-      </header>
-
+<?php
+$lang        = 'en';
+$page        = 'index';
+$title       = 'Al Mabraz | National Finance Intranet';
+$description = 'Al Mabraz — the National Finance employee intranet: news, events, CEO messages, policies and quick access to internal systems.';
+$useSwiper   = true;
+$preloads    = [
+    ['assets/images/hero-01-portal-bg-mobile.jpg', '(max-width: 575.98px)'],
+    ['assets/images/hero-01-portal-bg.jpg', '(min-width: 576px)'],
+];
+require __DIR__ . '/includes/header.php';
+?>
       <main id="main">
         <!-- ═══════════════════════ Hero ═══════════════════════ -->
         <section class="home-hero" aria-label="Highlights">
@@ -373,7 +284,7 @@
               <article class="feature-card tahadath-card" data-reveal="left">
                 <h3>Tahadath</h3>
                 <p>Our Internal Platform for Open Dialogue and Idea Sharing</p>
-                <a class="link-circle" href="tahadath.html">
+                <a class="link-circle" href="tahadath.php">
                   <span class="link-circle__text">Explore</span>
                   <span class="link-circle__icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
                 </a>
@@ -394,7 +305,7 @@
                   <span class="ceo-card__badge">CEO's Message</span>
                   <h3 class="ceo-card__title">A Message from the Chief Executive Officer</h3>
                   <p class="ceo-card__text">On Performance, Sustainability, and Growth</p>
-                  <a class="ceo-card__cta" href="ceo-message.html">
+                  <a class="ceo-card__cta" href="ceo-message.php">
                     <span class="ceo-card__cta-label">Watch Now</span>
                     <span class="ceo-card__play" aria-hidden="true">
                       <svg viewBox="0 0 12 14"><path fill="currentColor" d="M12 7 0 14V0z" /></svg>
@@ -437,7 +348,7 @@
               <div class="news-col">
                 <div class="news-col__head" data-reveal>
                   <h2 class="section-heading">Latest News &amp; Events</h2>
-                  <a class="link-circle" href="news.html">
+                  <a class="link-circle" href="news.php">
                     <span class="link-circle__text">View All News</span>
                     <span class="link-circle__icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
                   </a>
@@ -524,73 +435,4 @@
           </div>
         </section>
       </main>
-    </div>
-
-    <!-- ═══════════════════════ Footer ═══════════════════════ -->
-    <footer class="site-footer">
-      <div class="shell-container site-footer__inner">
-        <p class="site-footer__copy">© National Finance Intranet, <span class="year">2026</span></p>
-        <p class="site-footer__tagline">Partner for Growth</p>
-      </div>
-    </footer>
-
-    <!-- ═══════════════════════ Mobile drawer ═══════════════════════ -->
-    <div class="drawer" id="mobileDrawer" aria-hidden="true" inert>
-      <div class="drawer__backdrop" data-drawer-close></div>
-      <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu" data-lenis-prevent>
-        <div class="drawer__head" data-drawer-item style="--i: 0">
-          <img src="assets/images/national-finance-logo-white.png" alt="National Finance" width="233" height="46" />
-          <button class="drawer__close" type="button" data-drawer-close aria-label="Close menu">
-            <i class="bi bi-x-lg" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <div class="drawer__user" data-drawer-item style="--i: 1">
-          <img src="assets/images/user-avatar.jpg" alt="" width="48" height="48" />
-          <div>
-            <small>Welcome,</small>
-            <a href="#">Muhammad</a>
-          </div>
-          <a class="drawer__bell" href="#" aria-label="Notifications (new)"><i class="bi bi-bell-fill" aria-hidden="true"></i><span></span></a>
-        </div>
-
-        <p class="drawer__label" data-drawer-item style="--i: 2">Menu</p>
-        <ul class="drawer__nav">
-          <li data-drawer-item style="--i: 3">
-            <a href="ceo-message.html"><span class="drawer__icon"><img src="assets/images/icon-nav-ceo-message.png" alt="" width="24" height="24" /></span>CEO Message<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 4">
-            <a href="employee-directory.html"><span class="drawer__icon"><img src="assets/images/icon-nav-employee-directory.png" alt="" width="24" height="24" /></span>Employee Directory<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 5">
-            <a href="policies.html"><span class="drawer__icon"><img src="assets/images/icon-nav-policies.png" alt="" width="24" height="24" /></span>Policies<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 6">
-            <a href="tahadath.html"><span class="drawer__icon"><img src="assets/images/icon-nav-tahadath.png" alt="" width="24" height="24" /></span>Tahadath<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-        </ul>
-
-        <p class="drawer__label" data-drawer-item style="--i: 7">Quick Access</p>
-        <div class="drawer__apps" data-drawer-item style="--i: 8">
-          <a href="#"><span><img src="assets/images/icon-app-service-desk.png" alt="" width="36" height="36" /></span>Service Desk</a>
-          <a href="#"><span><img src="assets/images/icon-app-finnone.png" alt="" width="36" height="36" /></span>FinnOne</a>
-          <a href="#"><span><img src="assets/images/icon-app-edms.png" alt="" width="36" height="36" /></span>EDMS</a>
-          <a href="#"><span><img src="assets/images/icon-app-hrms.png" alt="" width="36" height="36" /></span>HRMS</a>
-          <a href="#"><span><img src="assets/images/icon-app-bi.png" alt="" width="36" height="36" /></span>BI</a>
-        </div>
-
-        <div class="drawer__foot" data-drawer-item style="--i: 9">
-          <a class="drawer__lang" href="ar/index.html" lang="ar" hreflang="ar">العربية</a>
-          <a class="drawer__mabraz" href="index.html" aria-label="Al Mabraz — home">
-            <img src="assets/images/al-mabraz-logo.png" alt="Al Mabraz" width="150" height="65" />
-          </a>
-        </div>
-      </aside>
-    </div>
-
-    <script src="assets/js/bootstrap.bundle.min.js" defer></script>
-    <script src="assets/js/swiper-bundle.min.js" defer></script>
-    <script src="assets/js/lenis.min.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
-  </body>
-</html>
+<?php require __DIR__ . '/includes/footer.php'; ?>

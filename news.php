@@ -1,110 +1,22 @@
-<!doctype html>
-<html lang="ar" dir="rtl" class="no-js">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-    <title>آخر الأخبار | المبرز</title>
-    <meta name="description" content="أخبار الوطنية للتمويل وفعالياتها — مستجدات أساسية ورؤى استراتيجية للموظفين." />
-    <meta name="theme-color" content="#4b0a78" />
-
-    <link rel="icon" href="../favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
-    <link rel="preload" href="../assets/fonts/Cairo-Arabic.woff2" as="font" type="font/woff2" crossorigin />
-
-    <link rel="stylesheet" href="../assets/css/bootstrap.rtl.min.css" />
-    <link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="../assets/css/style.css" />
-  </head>
-
-  <body class="page-inner">
-    <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
-
-    <div class="site-shell">
-      <!-- ═══════════════════════ Header ═══════════════════════ -->
-      <header class="site-header" id="siteHeader">
-        <div class="site-header__bar">
-          <a class="site-logo" href="index.html" aria-label="الوطنية للتمويل — الرئيسية">
-            <img src="../assets/images/national-finance-logo.png" alt="الوطنية للتمويل" width="119" height="78" />
-          </a>
-
-          <nav class="primary-nav" aria-label="الرئيسية">
-            <ul class="primary-nav__list">
-              <li>
-                <a class="primary-nav__link" href="ceo-message.html">
-                  <img src="../assets/images/icon-nav-ceo-message.png" alt="" width="24" height="24" />رسالة الرئيس التنفيذي
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="employee-directory.html">
-                  <img src="../assets/images/icon-nav-employee-directory.png" alt="" width="24" height="24" />دليل الموظفين
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="policies.html">
-                  <img src="../assets/images/icon-nav-policies.png" alt="" width="24" height="24" />السياسات
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="tahadath.html">
-                  <img src="../assets/images/icon-nav-tahadath.png" alt="" width="24" height="24" />تحدّث
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          <div class="header-tools">
-            <a class="header-bell" href="#" aria-label="الإشعارات (جديدة)">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bellGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#2a00b0" />
-                    <stop offset="1" stop-color="#7a0a8c" />
-                  </linearGradient>
-                </defs>
-                <path fill="url(#bellGrad)" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7.3-5.7-1.3-1.6V10a6 6 0 0 0-4.5-5.8V3.5a1.5 1.5 0 0 0-3 0v.7A6 6 0 0 0 6 10v4.7l-1.3 1.6A1 1 0 0 0 5.5 18h13a1 1 0 0 0 .8-1.7Z" />
-              </svg>
-              <span class="header-bell__dot"></span>
-            </a>
-
-            <div class="dropdown header-user">
-              <button class="header-user__toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="حسابي">
-                <img src="../assets/images/user-avatar.jpg" alt="" width="44" height="44" />
-                <span class="header-user__name">مرحباً، <strong>محمد!</strong></span>
-                <i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person" aria-hidden="true"></i>ملفي الشخصي</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-gear" aria-hidden="true"></i>الإعدادات</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right" aria-hidden="true"></i>تسجيل الخروج</a></li>
-              </ul>
-            </div>
-
-            <a class="header-lang" href="../news.html" lang="en" hreflang="en"><span>English</span></a>
-
-            <button class="nav-toggle" type="button" aria-controls="mobileDrawer" aria-expanded="false" aria-label="فتح القائمة">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-
-          <a class="al-mabraz" href="index.html" aria-label="المبرز — الرئيسية">
-            <img src="../assets/images/al-mabraz-logo.png" alt="المبرز" width="150" height="65" />
-          </a>
-        </div>
-      </header>
-
+<?php
+$lang        = 'en';
+$page        = 'news';
+$title       = 'News Updates | Al Mabraz';
+$description = 'National Finance news and events — essential updates and strategic insights for employees.';
+$bodyClass   = 'page-inner';
+require __DIR__ . '/includes/header.php';
+?>
       <main id="main" class="inner-main">
         <!-- ═══════════════════════ Hero ═══════════════════════ -->
         <section class="inner-section" aria-labelledby="pageTitle">
           <div class="shell-container">
             <div class="page-hero page-hero--center">
               <div class="page-hero__text">
-                <h1 class="page-title" id="pageTitle" data-reveal>آخر الأخبار</h1>
-                <p class="page-lead" style="--lead-max: 560px; --reveal-delay: 120ms" data-reveal>نُبقيك على اطلاع بأهم المستجدات والرؤى الاستراتيجية.</p>
+                <h1 class="page-title" id="pageTitle" data-reveal>News Updates</h1>
+                <p class="page-lead" style="--lead-max: 560px; --reveal-delay: 120ms" data-reveal>Keeping you informed with essential updates and strategic insights.</p>
               </div>
               <figure class="page-hero__media" data-reveal="fade">
-                <img src="../assets/images/news-hero.jpg" alt="" width="800" height="350" />
+                <img src="assets/images/news-hero.jpg" alt="" width="800" height="350" />
                 <svg class="page-ribbon" viewBox="0 0 798 347" preserveAspectRatio="none" fill="none" stroke-width="96" aria-hidden="true" focusable="false">
                   <defs>
                     <mask id="nws-all" maskUnits="userSpaceOnUse" x="-100" y="-100" width="1000" height="700"><path fill="#fff" d="M746.14 0.77L725.24 5.81L706.23 10.79L685.16 16.73L665.19 22.74L643.22 29.76L622.34 36.88L600.32 44.85L582.24 51.75L557.29 61.81L536.26 70.75L518.25 78.75L490.25 91.75L459.66 107.15L438.14 118.64L427 124.89L425.43 123.1L421.82 117.7L418.42 113.11L413.89 107.64L409.01 102.49L403.4 97.09L397.39 92.08L393.39 89.09L387.4 85.09L383.71 82.82L373.94 77.57L367.78 74.71L360.65 71.9L351.67 68.88L344.65 66.91L334.9 64.72L328.96 63.66L322.92 62.76L312 61.65L295 61.2L278 61.68L267.01 62.67L258.1 63.79L246.1 65.7L243.85 66.31L240.29 66.84L238.84 67.3L236.09 67.64L233.83 68.3L231.1 68.69L224.83 70.3L222.15 70.76L214.22 72.78L203.33 75.89L193.43 78.97L174.13 85.65L153.37 93.9L141.58 99.06L129.3 104.8L108.68 115.17L97.63 121.14L86.14 127.63L75.57 134.07L62.16 142.65L43.09 155.57L33.19 162.66L20.6 172.07L0.57 188.05L-0.24 189.24L-0.5 192L-0.5 274L-0.38 277L0 277.41L6.66 271.14L23.62 256.09L36.61 245.08L53.15 231.61L62.14 224.6L73.59 216.06L87.66 206.13L96.62 200.11L110.63 191.12L120.56 185.07L141.2 173.7L153.13 167.64L171.51 159.01L181.28 154.8L195.63 149.1L213.34 142.89L230.26 137.81L242.2 134.79L257.09 131.71L270.07 129.75L281 128.63L298 128.15L308 128.53L317.94 129.69L327.86 131.73L331.75 132.79L337.74 134.78L344.73 137.77L348 139.5L352.34 142.14L357.5 146L361.13 149.37L364.51 152.99L365.88 154.64L368.74 158.77L369.74 161L367.41 162.93L357.13 170.6L345.15 180.62L334.2 190.68L326.68 198.2L317.1 208.63L311.6 215.14L304.17 224.7L295.55 237.08L288.73 248.22L283.76 257.25L278.59 268.07L274.8 277.28L270.72 289.15L267.77 300.16L265.69 311.06L264.68 319.01L264.31 330L264.63 340L265.71 347.91L267.83 356.72L270.95 365.58L275.23 374.25L279.64 380.82L284.71 386.79L291.07 392.45L294.58 394.94L298.27 397.22L301.55 398.96L305 400.5L309.35 402.1L313.18 403.24L318.06 404.36L327.69 404.99L335.97 404.34L341.86 403.23L344.95 402.45L351.8 400.28L358.92 397.4L363.61 395.1L368.78 392.28L374.32 388.85L381.41 383.94L385.92 380.44L392.38 374.9L403.39 363.87L408.92 357.39L412.85 352.33L418.26 344.76L423.34 336.84L427.34 329.84L430.41 323.92L433.32 317.82L436.31 310.81L439.29 302.83L442.26 293.8L444.23 286.8L446.17 278.76L448.26 267.91L449.31 260.96L450.4 251L450.53 246L451.16 238.99L451.34 231L451.14 223.02L450.51 218L450.31 209.01L448.37 192.01L448.65 190.25L449.11 189.62L458.55 184.05L475.22 174.73L492.2 165.7L518.16 152.67L539.29 142.79L557.19 134.69L573.24 127.73L592.3 119.82L610.21 112.72L631.27 104.8L651.2 97.73L672.2 90.73L698.15 82.71L715.22 77.77L733.32 72.88L748 69.25L748.26 69L748.51 66L748.52 1L748 0.49ZM382.61 237.12L383 236.67L384 236.22L384.29 237L384.18 238.99L383.25 249.93L382.25 256.9L381.15 262.73L379.23 270.79L377.17 277.71L374.24 285.75L370.19 294.7L366.29 301.8L362.4 307.86L359.47 311.96L354.99 317.48L350.1 322.6L344.37 327.91L339.25 331.76L333.03 335.51L331.97 336L331.49 333.98L331.24 330L331.6 323.01L332.78 316.16L334.84 308.3L336.89 302.35L339.74 295.25L342.65 289.15L346.15 282.66L350.66 275.17L355.06 268.58L360.15 261.68L364.6 256.13L371.13 248.65L376.03 243.53Z"/></mask>
@@ -357,249 +269,181 @@
         <!-- ═══════════════════════ News grid ═══════════════════════ -->
         <section class="inner-section news-archive" aria-labelledby="archiveTitle">
           <div class="shell-container">
-            <h2 class="section-heading" id="archiveTitle" data-reveal>آخر الأخبار والفعاليات</h2>
+            <h2 class="section-heading" id="archiveTitle" data-reveal>Latest News &amp; Events</h2>
 
             <ul class="news-grid" id="newsGrid" role="list">
               <li class="news-tile" data-page="1" style="--i: 0">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-01.jpg" alt="أحد مسؤولي الوطنية للتمويل يلقي كلمة على المنصة" width="340" height="230" />
+                    <img src="assets/images/news-thumb-01.jpg" alt="A National Finance executive speaking at a podium on stage" width="340" height="230" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 1">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-02.jpg" alt="أحد مسؤولي الوطنية للتمويل جالساً أمام شعار الشركة" width="340" height="230" />
+                    <img src="assets/images/news-thumb-02.jpg" alt="A National Finance executive seated in front of the company logo" width="340" height="230" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 2">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-03.jpg" alt="متطوعو الوطنية للتمويل بالسترات التي تحمل شعار الشركة مع الموظفين" width="340" height="230" />
+                    <img src="assets/images/news-thumb-03.jpg" alt="National Finance volunteers in branded vests with staff" width="340" height="230" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 3">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-04.jpg" alt="متطوعو الوطنية للتمويل بالسترات التي تحمل شعار الشركة عند مدخل إحدى الفعاليات" width="340" height="230" />
+                    <img src="assets/images/news-thumb-04.jpg" alt="National Finance volunteers in branded vests at an event entrance" width="340" height="230" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 4">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-05.jpg" alt="قيادات الوطنية للتمويل تتسلم جائزة على المنصة" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-05.jpg" alt="National Finance leaders receiving an award on stage" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 5">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-06.jpg" alt="سيدتان تحملان الاتفاقيات الموقعة خلال توقيع شراكة" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-06.jpg" alt="Two women holding signed agreements at a partnership signing" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 6">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-07.jpg" alt="صورة جماعية لموظفي الوطنية للتمويل في فعالية داخلية" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-07.jpg" alt="National Finance staff group photo at an internal event" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="1" style="--i: 7">
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-08.jpg" alt="متحدث من الوطنية للتمويل يقدّم عرضاً في مؤتمر" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-08.jpg" alt="A National Finance speaker presenting at a conference" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 0" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-01.jpg" alt="أحد مسؤولي الوطنية للتمويل يلقي كلمة على المنصة" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-01.jpg" alt="A National Finance executive speaking at a podium on stage" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 1" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-04.jpg" alt="متطوعو الوطنية للتمويل بالسترات التي تحمل شعار الشركة عند مدخل إحدى الفعاليات" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-04.jpg" alt="National Finance volunteers in branded vests at an event entrance" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 2" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-07.jpg" alt="صورة جماعية لموظفي الوطنية للتمويل في فعالية داخلية" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-07.jpg" alt="National Finance staff group photo at an internal event" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 3" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-02.jpg" alt="أحد مسؤولي الوطنية للتمويل جالساً أمام شعار الشركة" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-02.jpg" alt="A National Finance executive seated in front of the company logo" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 4" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-05.jpg" alt="قيادات الوطنية للتمويل تتسلم جائزة على المنصة" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-05.jpg" alt="National Finance leaders receiving an award on stage" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 5" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-08.jpg" alt="متحدث من الوطنية للتمويل يقدّم عرضاً في مؤتمر" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-08.jpg" alt="A National Finance speaker presenting at a conference" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 6" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-03.jpg" alt="متطوعو الوطنية للتمويل بالسترات التي تحمل شعار الشركة مع الموظفين" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-03.jpg" alt="National Finance volunteers in branded vests with staff" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
               <li class="news-tile" data-page="2" style="--i: 7" hidden>
                 <article>
                   <div class="news-tile__media">
-                    <img src="../assets/images/news-thumb-06.jpg" alt="سيدتان تحملان الاتفاقيات الموقعة خلال توقيع شراكة" width="340" height="230" loading="lazy" />
+                    <img src="assets/images/news-thumb-06.jpg" alt="Two women holding signed agreements at a partnership signing" width="340" height="230" loading="lazy" />
                   </div>
-                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">الوطنية للتمويل تحتفي بعام من الإنجاز والنمو</a></h3>
-                  <p class="news-tile__excerpt">مواصلةً لإرثها في التميّز، تختتم الوطنية للتمويل، شركة التمويل الرائدة في سلطنة عُمان، العام بنتائج قياسية في محافظ الأفراد والشركات.</p>
-                  <span class="news-tile__more" aria-hidden="true">اقرأ المزيد<i class="bi bi-arrow-right"></i></span>
+                  <h3 class="news-tile__title"><a href="#" target="_blank" rel="noopener noreferrer">National Finance Marks a Year of Achievement and Growth</a></h3>
+                  <p class="news-tile__excerpt">Continuing its legacy of excellence, National Finance, the Sultanate of Oman's leading finance company, closes the year with record results across its retail and corporate portfolios.</p>
+                  <span class="news-tile__more" aria-hidden="true">Read more<i class="bi bi-arrow-right"></i></span>
                 </article>
               </li>
             </ul>
 
-            <nav class="news-pager" aria-label="صفحات الأخبار">
+            <nav class="news-pager" aria-label="News pages">
               <button class="news-pager__btn" type="button" data-pager="prev" aria-controls="newsGrid" disabled>
-                <i class="bi bi-chevron-left" aria-hidden="true"></i><span class="visually-hidden">الصفحة السابقة</span>
+                <i class="bi bi-chevron-left" aria-hidden="true"></i><span class="visually-hidden">Previous page</span>
               </button>
-              <p class="visually-hidden" role="status" data-pager-status>الصفحة 1 من 2</p>
+              <p class="visually-hidden" role="status" data-pager-status>Page 1 of 2</p>
               <button class="news-pager__btn" type="button" data-pager="next" aria-controls="newsGrid">
-                <i class="bi bi-chevron-right" aria-hidden="true"></i><span class="visually-hidden">الصفحة التالية</span>
+                <i class="bi bi-chevron-right" aria-hidden="true"></i><span class="visually-hidden">Next page</span>
               </button>
             </nav>
           </div>
         </section>
       </main>
-    </div>
-
-    <!-- ═══════════════════════ Footer ═══════════════════════ -->
-    <footer class="site-footer">
-      <div class="shell-container site-footer__inner">
-        <p class="site-footer__copy">© البوابة الداخلية للوطنية للتمويل، <span class="year">2026</span></p>
-        <p class="site-footer__tagline">شريك النمو</p>
-      </div>
-    </footer>
-
-    <!-- ═══════════════════════ Mobile drawer ═══════════════════════ -->
-    <div class="drawer" id="mobileDrawer" aria-hidden="true" inert>
-      <div class="drawer__backdrop" data-drawer-close></div>
-      <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="القائمة" data-lenis-prevent>
-        <div class="drawer__head" data-drawer-item style="--i: 0">
-          <img src="../assets/images/national-finance-logo-white.png" alt="الوطنية للتمويل" width="233" height="46" />
-          <button class="drawer__close" type="button" data-drawer-close aria-label="إغلاق القائمة">
-            <i class="bi bi-x-lg" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <div class="drawer__user" data-drawer-item style="--i: 1">
-          <img src="../assets/images/user-avatar.jpg" alt="" width="48" height="48" />
-          <div>
-            <small>مرحباً،</small>
-            <a href="#">محمد</a>
-          </div>
-          <a class="drawer__bell" href="#" aria-label="الإشعارات (جديدة)"><i class="bi bi-bell-fill" aria-hidden="true"></i><span></span></a>
-        </div>
-
-        <p class="drawer__label" data-drawer-item style="--i: 2">القائمة</p>
-        <ul class="drawer__nav">
-          <li data-drawer-item style="--i: 3">
-            <a href="ceo-message.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-ceo-message.png" alt="" width="24" height="24" /></span>رسالة الرئيس التنفيذي<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 4">
-            <a href="employee-directory.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-employee-directory.png" alt="" width="24" height="24" /></span>دليل الموظفين<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 5">
-            <a href="policies.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-policies.png" alt="" width="24" height="24" /></span>السياسات<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 6">
-            <a href="tahadath.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-tahadath.png" alt="" width="24" height="24" /></span>تحدّث<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-        </ul>
-
-        <p class="drawer__label" data-drawer-item style="--i: 7">وصول سريع</p>
-        <div class="drawer__apps" data-drawer-item style="--i: 8">
-          <a href="#"><span><img src="../assets/images/icon-app-service-desk.png" alt="" width="36" height="36" /></span>مكتب الخدمات</a>
-          <a href="#"><span><img src="../assets/images/icon-app-finnone.png" alt="" width="36" height="36" /></span>FinnOne</a>
-          <a href="#"><span><img src="../assets/images/icon-app-edms.png" alt="" width="36" height="36" /></span>EDMS</a>
-          <a href="#"><span><img src="../assets/images/icon-app-hrms.png" alt="" width="36" height="36" /></span>HRMS</a>
-          <a href="#"><span><img src="../assets/images/icon-app-bi.png" alt="" width="36" height="36" /></span>BI</a>
-        </div>
-
-        <div class="drawer__foot" data-drawer-item style="--i: 9">
-          <a class="drawer__lang" href="../news.html" lang="en" hreflang="en">English</a>
-          <a class="drawer__mabraz" href="index.html" aria-label="المبرز — الرئيسية">
-            <img src="../assets/images/al-mabraz-logo.png" alt="المبرز" width="150" height="65" />
-          </a>
-        </div>
-      </aside>
-    </div>
-
-    <script src="../assets/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../assets/js/lenis.min.js" defer></script>
-    <script src="../assets/js/main.js" defer></script>
-  </body>
-</html>
+<?php require __DIR__ . '/includes/footer.php'; ?>

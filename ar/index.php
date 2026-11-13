@@ -1,102 +1,15 @@
-<!doctype html>
-<html lang="ar" dir="rtl" class="no-js">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-    <title>المبرز | البوابة الداخلية للوطنية للتمويل</title>
-    <meta name="description" content="المبرز — البوابة الداخلية لموظفي الوطنية للتمويل: الأخبار والفعاليات ورسائل الرئيس التنفيذي والسياسات والوصول السريع إلى الأنظمة الداخلية." />
-    <meta name="theme-color" content="#4b0a78" />
-
-    <link rel="icon" href="../favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
-    <link rel="preload" href="../assets/fonts/Cairo-Arabic.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="../assets/images/hero-01-portal-bg-mobile.jpg" as="image" media="(max-width: 575.98px)" />
-    <link rel="preload" href="../assets/images/hero-01-portal-bg.jpg" as="image" media="(min-width: 576px)" />
-
-    <link rel="stylesheet" href="../assets/css/bootstrap.rtl.min.css" />
-    <link rel="stylesheet" href="../assets/css/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="../assets/css/style.css" />
-  </head>
-
-  <body>
-    <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
-
-    <div class="site-shell">
-      <!-- ═══════════════════════ Header ═══════════════════════ -->
-      <header class="site-header" id="siteHeader">
-        <div class="site-header__bar">
-          <a class="site-logo" href="index.html" aria-label="الوطنية للتمويل — الرئيسية">
-            <img src="../assets/images/national-finance-logo.png" alt="الوطنية للتمويل" width="119" height="78" />
-          </a>
-
-          <nav class="primary-nav" aria-label="الرئيسية">
-            <ul class="primary-nav__list">
-              <li>
-                <a class="primary-nav__link" href="ceo-message.html">
-                  <img src="../assets/images/icon-nav-ceo-message.png" alt="" width="24" height="24" />رسالة الرئيس التنفيذي
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="employee-directory.html">
-                  <img src="../assets/images/icon-nav-employee-directory.png" alt="" width="24" height="24" />دليل الموظفين
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="policies.html">
-                  <img src="../assets/images/icon-nav-policies.png" alt="" width="24" height="24" />السياسات
-                </a>
-              </li>
-              <li>
-                <a class="primary-nav__link" href="tahadath.html">
-                  <img src="../assets/images/icon-nav-tahadath.png" alt="" width="24" height="24" />تحدّث
-                </a>
-              </li>
-            </ul>
-          </nav>
-
-          <div class="header-tools">
-            <a class="header-bell" href="#" aria-label="الإشعارات (جديدة)">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bellGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#2a00b0" />
-                    <stop offset="1" stop-color="#7a0a8c" />
-                  </linearGradient>
-                </defs>
-                <path fill="url(#bellGrad)" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7.3-5.7-1.3-1.6V10a6 6 0 0 0-4.5-5.8V3.5a1.5 1.5 0 0 0-3 0v.7A6 6 0 0 0 6 10v4.7l-1.3 1.6A1 1 0 0 0 5.5 18h13a1 1 0 0 0 .8-1.7Z" />
-              </svg>
-              <span class="header-bell__dot"></span>
-            </a>
-
-            <div class="dropdown header-user">
-              <button class="header-user__toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="حسابي">
-                <img src="../assets/images/user-avatar.jpg" alt="" width="44" height="44" />
-                <span class="header-user__name">مرحباً، <strong>محمد!</strong></span>
-                <i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person" aria-hidden="true"></i>ملفي الشخصي</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-gear" aria-hidden="true"></i>الإعدادات</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right" aria-hidden="true"></i>تسجيل الخروج</a></li>
-              </ul>
-            </div>
-
-            <a class="header-lang" href="../index.html" lang="en" hreflang="en"><span>English</span></a>
-
-            <button class="nav-toggle" type="button" aria-controls="mobileDrawer" aria-expanded="false" aria-label="فتح القائمة">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-
-          <a class="al-mabraz" href="index.html" aria-label="المبرز — الرئيسية">
-            <img src="../assets/images/al-mabraz-logo.png" alt="المبرز" width="150" height="65" />
-          </a>
-        </div>
-      </header>
-
+<?php
+$lang        = 'ar';
+$page        = 'index';
+$title       = 'المبرز | البوابة الداخلية للوطنية للتمويل';
+$description = 'المبرز — البوابة الداخلية لموظفي الوطنية للتمويل: الأخبار والفعاليات ورسائل الرئيس التنفيذي والسياسات والوصول السريع إلى الأنظمة الداخلية.';
+$useSwiper   = true;
+$preloads    = [
+    ['assets/images/hero-01-portal-bg-mobile.jpg', '(max-width: 575.98px)'],
+    ['assets/images/hero-01-portal-bg.jpg', '(min-width: 576px)'],
+];
+require __DIR__ . '/../includes/header.php';
+?>
       <main id="main">
         <!-- ═══════════════════════ Hero ═══════════════════════ -->
         <section class="home-hero" aria-label="أبرز المستجدات">
@@ -371,7 +284,7 @@
               <article class="feature-card tahadath-card" data-reveal="left">
                 <h3>تحدّث</h3>
                 <p>منصتنا الداخلية للحوار المفتوح وتبادل الأفكار</p>
-                <a class="link-circle" href="tahadath.html">
+                <a class="link-circle" href="tahadath.php">
                   <span class="link-circle__text">استكشف</span>
                   <span class="link-circle__icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
                 </a>
@@ -392,7 +305,7 @@
                   <span class="ceo-card__badge">رسالة الرئيس التنفيذي</span>
                   <h3 class="ceo-card__title">رسالة من الرئيس التنفيذي</h3>
                   <p class="ceo-card__text">حول الأداء والاستدامة والنمو</p>
-                  <a class="ceo-card__cta" href="ceo-message.html">
+                  <a class="ceo-card__cta" href="ceo-message.php">
                     <span class="ceo-card__cta-label">شاهد الآن</span>
                     <span class="ceo-card__play" aria-hidden="true">
                       <svg viewBox="0 0 12 14"><path fill="currentColor" d="M12 7 0 14V0z" /></svg>
@@ -435,7 +348,7 @@
               <div class="news-col">
                 <div class="news-col__head" data-reveal>
                   <h2 class="section-heading">آخر الأخبار والفعاليات</h2>
-                  <a class="link-circle" href="news.html">
+                  <a class="link-circle" href="news.php">
                     <span class="link-circle__text">عرض جميع الأخبار</span>
                     <span class="link-circle__icon"><i class="bi bi-arrow-right" aria-hidden="true"></i></span>
                   </a>
@@ -522,73 +435,4 @@
           </div>
         </section>
       </main>
-    </div>
-
-    <!-- ═══════════════════════ Footer ═══════════════════════ -->
-    <footer class="site-footer">
-      <div class="shell-container site-footer__inner">
-        <p class="site-footer__copy">© البوابة الداخلية للوطنية للتمويل، <span class="year">2026</span></p>
-        <p class="site-footer__tagline">شريك النمو</p>
-      </div>
-    </footer>
-
-    <!-- ═══════════════════════ Mobile drawer ═══════════════════════ -->
-    <div class="drawer" id="mobileDrawer" aria-hidden="true" inert>
-      <div class="drawer__backdrop" data-drawer-close></div>
-      <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="القائمة" data-lenis-prevent>
-        <div class="drawer__head" data-drawer-item style="--i: 0">
-          <img src="../assets/images/national-finance-logo-white.png" alt="الوطنية للتمويل" width="233" height="46" />
-          <button class="drawer__close" type="button" data-drawer-close aria-label="إغلاق القائمة">
-            <i class="bi bi-x-lg" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <div class="drawer__user" data-drawer-item style="--i: 1">
-          <img src="../assets/images/user-avatar.jpg" alt="" width="48" height="48" />
-          <div>
-            <small>مرحباً،</small>
-            <a href="#">محمد</a>
-          </div>
-          <a class="drawer__bell" href="#" aria-label="الإشعارات (جديدة)"><i class="bi bi-bell-fill" aria-hidden="true"></i><span></span></a>
-        </div>
-
-        <p class="drawer__label" data-drawer-item style="--i: 2">القائمة</p>
-        <ul class="drawer__nav">
-          <li data-drawer-item style="--i: 3">
-            <a href="ceo-message.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-ceo-message.png" alt="" width="24" height="24" /></span>رسالة الرئيس التنفيذي<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 4">
-            <a href="employee-directory.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-employee-directory.png" alt="" width="24" height="24" /></span>دليل الموظفين<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 5">
-            <a href="policies.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-policies.png" alt="" width="24" height="24" /></span>السياسات<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-          <li data-drawer-item style="--i: 6">
-            <a href="tahadath.html"><span class="drawer__icon"><img src="../assets/images/icon-nav-tahadath.png" alt="" width="24" height="24" /></span>تحدّث<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </li>
-        </ul>
-
-        <p class="drawer__label" data-drawer-item style="--i: 7">وصول سريع</p>
-        <div class="drawer__apps" data-drawer-item style="--i: 8">
-          <a href="#"><span><img src="../assets/images/icon-app-service-desk.png" alt="" width="36" height="36" /></span>مكتب الخدمات</a>
-          <a href="#"><span><img src="../assets/images/icon-app-finnone.png" alt="" width="36" height="36" /></span>FinnOne</a>
-          <a href="#"><span><img src="../assets/images/icon-app-edms.png" alt="" width="36" height="36" /></span>EDMS</a>
-          <a href="#"><span><img src="../assets/images/icon-app-hrms.png" alt="" width="36" height="36" /></span>HRMS</a>
-          <a href="#"><span><img src="../assets/images/icon-app-bi.png" alt="" width="36" height="36" /></span>BI</a>
-        </div>
-
-        <div class="drawer__foot" data-drawer-item style="--i: 9">
-          <a class="drawer__lang" href="../index.html" lang="en" hreflang="en">English</a>
-          <a class="drawer__mabraz" href="index.html" aria-label="المبرز — الرئيسية">
-            <img src="../assets/images/al-mabraz-logo.png" alt="المبرز" width="150" height="65" />
-          </a>
-        </div>
-      </aside>
-    </div>
-
-    <script src="../assets/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../assets/js/swiper-bundle.min.js" defer></script>
-    <script src="../assets/js/lenis.min.js" defer></script>
-    <script src="../assets/js/main.js" defer></script>
-  </body>
-</html>
+<?php require __DIR__ . '/../includes/footer.php'; ?>

@@ -1,0 +1,43 @@
+<?php
+// English UI strings for the shared header, drawer and footer.
+return [
+    'html_lang'       => 'en',
+    'dir'             => 'ltr',
+    'skip'            => 'Skip to content',
+    'nf'              => 'National Finance',
+    'nf_home'         => 'National Finance — home',
+    'mabraz'          => 'Al Mabraz',
+    'mabraz_home'     => 'Al Mabraz — home',
+    'nav_label'       => 'Main',
+    'notifications'   => 'Notifications (new)',
+    'account'         => 'My account',
+    'welcome_html'    => 'Welcome, <strong>Mohammed!</strong>',
+    'profile'         => 'My Profile',
+    'settings'        => 'Settings',
+    'sign_out'        => 'Sign Out',
+    'open_menu'       => 'Open menu',
+    'close_menu'      => 'Close menu',
+    'menu'            => 'Menu',
+    'welcome'         => 'Welcome,',
+    'user_name'       => 'Muhammad',
+    'quick_access'    => 'Quick Access',
+    'copy'            => '© National Finance Intranet, ',
+    'tagline'         => 'Partner for Growth',
+    // Language switch: points at the same page in the other language.
+    'switch_lang'     => 'ar',
+    'switch_label'    => 'العربية',
+    'switch_href'     => 'ar/',
+    'nav' => [
+        'ceo-message'        => 'CEO Message',
+        'employee-directory' => 'Employee Directory',
+        'policies'           => 'Policies',
+        'tahadath'           => 'Tahadath',
+    ],
+    'apps' => [
+        'service-desk' => 'Service Desk',
+        'finnone'      => 'FinnOne',
+        'edms'         => 'EDMS',
+        'hrms'         => 'HRMS',
+        'bi'           => 'BI',
+    ],
+];
