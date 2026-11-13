@@ -1,0 +1,554 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Mobile / tablet drawer (below xl)
+//
+//  Open sequence: the backdrop blurs in, the panel sweeps in from the inline
+//  end on a springy curve while a gradient wash wipes across it, then every
+//  `[data-drawer-item]` rises in on a stagger driven by its `--i` index.
+//  main.js toggles `.is-open`, `inert` and focus trapping.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─── Hamburger ─────────────────────────────────────────────────────────────
+// Round, avatar-sized (44px, 38px on phones). Layers: ::before is a conic
+// brand ring that spins in on hover/open, ::after is the gradient face with a
+// sweeping sheen, the three bars sit on top. Hover staggers the bars into a
+// wave; open spins the button half a turn on a spring while the bars fold
+// into an X and a ripple pulses out.
+.nav-toggle {
+  --size: 44px;
+  --bar: 18px;
+
+  position: relative;
+  isolation: isolate;
+  @include flex-center;
+  display: none; // after flex-center, which sets display: flex
+  flex-shrink: 0;
+  width: var(--size);
+  height: var(--size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-circle);
+  background: transparent;
+  box-shadow: 0 8px 18px rgb(75 10 120 / 30%);
+  transition:
+    transform 0.6s var(--ease-spring),
+    box-shadow 0.3s var(--ease-out);
+  @include focus-ring;
+
+  // Spinning gradient ring
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    z-index: -2;
+    border-radius: inherit;
+    background: conic-gradient(#ca0033, #74005f, #000097, #ff4d8d, #ca0033);
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity 0.3s var(--ease-out),
+      transform 0.45s var(--ease-spring);
+  }
+
+  // Gradient face + sheen
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 35%) 50%, transparent 65%) -150% 0 / 250% 100% no-repeat,
+      var(--nf-grad-card);
+    box-shadow: inset 0 0 0 2px rgb(255 255 255 / 85%);
+    transition: background-position 0.7s var(--ease-out);
+  }
+
+  span {
+    position: absolute;
+    left: calc(50% - var(--bar) / 2);
+    width: var(--bar);
+    height: 2px;
+    border-radius: 2px;
+    background: var(--white);
+    transform-origin: center;
+    transition:
+      transform 0.5s var(--ease-spring),
+      opacity 0.25s,
+      width 0.35s var(--ease-out),
+      top 0.35s var(--ease-out),
+      left 0.35s var(--ease-out);
+
+    &:nth-child(1) {
+      top: calc(50% - 7px);
+    }
+    &:nth-child(2) {
+      top: calc(50% - 1px);
+      left: calc(50% - var(--bar) / 2 + 6px);
+      width: calc(var(--bar) - 6px);
+    }
+    &:nth-child(3) {
+      top: calc(50% + 5px);
+    }
+  }
+
+  @include hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgb(75 10 120 / 38%);
+
+    &::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &::after {
+      background-position: 150% 0, 0 0;
+    }
+
+    span:nth-child(2) {
+      left: calc(50% - var(--bar) / 2);
+      width: var(--bar);
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition-duration: 0.12s;
+  }
+
+  &[aria-expanded="true"] {
+    transform: rotate(180deg);
+
+    &::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    span {
+      &:nth-child(1) {
+        top: calc(50% - 1px);
+        transform: rotate(45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      &:nth-child(3) {
+        top: calc(50% - 1px);
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  @include motion-ok {
+    @include hover {
+      &::before {
+        animation: navToggleSpin 2.4s linear infinite;
+      }
+
+      span {
+        animation: navToggleWave 0.6s var(--ease-out);
+
+        &:nth-child(2) {
+          animation-delay: 0.07s;
+        }
+        &:nth-child(3) {
+          animation-delay: 0.14s;
+        }
+      }
+    }
+
+    &[aria-expanded="true"] {
+      animation: navTogglePulse 0.7s var(--ease-out);
+
+      &::before {
+        animation: navToggleSpin 2.4s linear infinite;
+      }
+
+      span {
+        animation: none;
+      }
+    }
+  }
+
+  @include mq-down("xl") {
+    display: flex;
+  }
+
+  @include mq-down("sm") {
+    --size: 38px;
+    --bar: 16px;
+  }
+}
+
+@keyframes navToggleSpin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes navToggleWave {
+  40% {
+    translate: 3px 0;
+  }
+  70% {
+    translate: -1px 0;
+  }
+}
+
+@keyframes navTogglePulse {
+  from {
+    box-shadow:
+      0 8px 18px rgb(75 10 120 / 30%),
+      0 0 0 0 rgb(202 0 51 / 45%);
+  }
+  to {
+    box-shadow:
+      0 8px 18px rgb(75 10 120 / 30%),
+      0 0 0 16px rgb(202 0 51 / 0%);
+  }
+}
+
+// ─── Drawer ────────────────────────────────────────────────────────────────
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 0.6s;
+
+  &.is-open {
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  @include mq-up("xl") {
+    display: none;
+  }
+}
+
+.drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(20 0 50 / 45%);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+
+  .drawer.is-open & {
+    opacity: 1;
+  }
+}
+
+.drawer__panel {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  inset-inline-end: 10px;
+  display: flex;
+  flex-direction: column;
+  width: min(400px, calc(100vw - 20px));
+  padding: 22px 22px 18px;
+  color: var(--white);
+  background:
+    radial-gradient(120% 60% at 100% 0%, rgb(28 0 160 / 80%), transparent 60%),
+    linear-gradient(160deg, #4b0a78 0%, #5b0069 55%, #9a004d 100%);
+  border-radius: 28px;
+  box-shadow: -20px 0 60px rgb(20 0 50 / 40%);
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  transform: translateX(calc(100% + 24px));
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+
+  [dir="rtl"] & {
+    transform: translateX(calc(-100% - 24px));
+  }
+
+  .drawer.is-open & {
+    transform: translateX(0);
+  }
+
+  // Brand ribbon drifting along the bottom of the panel.
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline: -30% -10%;
+    bottom: -20px;
+    height: 220px;
+    background: url("../images/hero-ribbon.png") no-repeat right bottom / contain;
+    opacity: 0.22;
+    pointer-events: none;
+    transform: translateX(40px);
+    transition: transform 1.2s var(--ease-out) 0.2s;
+  }
+
+  .drawer.is-open &::before {
+    transform: translateX(0);
+  }
+
+  // Light wipe that sweeps across as the panel lands.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 18%) 50%, transparent 70%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+
+  .drawer.is-open &::after {
+    animation: drawerSheen 1.1s var(--ease-out) 0.25s both;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// Staggered entrance for anything inside the panel.
+[data-drawer-item] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.5s var(--ease-out);
+
+  .drawer.is-open & {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(0.18s + var(--i, 0) * 0.055s);
+  }
+}
+
+.drawer__head {
+  @include flex-between(12px);
+  margin-bottom: 22px;
+
+  img {
+    width: 150px;
+    height: auto;
+  }
+}
+
+.drawer__close {
+  @include flex-center;
+  width: 42px;
+  height: 42px;
+  color: var(--white);
+  font-size: 20px;
+  background: rgb(255 255 255 / 12%);
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: var(--radius-circle);
+  transition: transform 0.4s var(--ease-spring), background-color 0.3s;
+  @include focus-ring(var(--white));
+
+  @include hover {
+    background: rgb(255 255 255 / 22%);
+    transform: rotate(90deg);
+  }
+}
+
+.drawer__user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding: 12px;
+  background: rgb(255 255 255 / 10%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 18px;
+
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-circle);
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 70%);
+  }
+
+  small {
+    display: block;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+
+  a {
+    font-weight: var(--fw-bold);
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .drawer__bell {
+    position: relative;
+    margin-inline-start: auto;
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    color: var(--white);
+    font-size: 18px;
+    background: rgb(255 255 255 / 12%);
+    border-radius: var(--radius-circle);
+
+    span {
+      position: absolute;
+      top: 8px;
+      inset-inline-end: 9px;
+      width: 8px;
+      height: 8px;
+      background: #ff1640;
+      border-radius: var(--radius-circle);
+    }
+  }
+}
+
+.drawer__label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.drawer__nav {
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 6px;
+    font-size: 17px;
+    font-weight: var(--fw-medium);
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid rgb(255 255 255 / 12%);
+    @include focus-ring(var(--white));
+
+    .drawer__icon {
+      @include flex-center;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--white);
+      border-radius: 12px;
+      transition: transform 0.4s var(--ease-spring);
+
+      img {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    &[aria-current="page"] {
+      color: var(--nf-pink);
+
+      .bi-arrow-right {
+        opacity: 1;
+      }
+    }
+
+    .bi-arrow-right {
+      margin-inline-start: auto;
+      opacity: 0.5;
+      transition: transform 0.3s var(--ease-out), opacity 0.3s;
+
+      [dir="rtl"] & {
+        transform: scaleX(-1);
+      }
+    }
+
+    @include hover {
+      .drawer__icon {
+        transform: rotate(-8deg) scale(1.08);
+      }
+
+      .bi-arrow-right {
+        opacity: 1;
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+.drawer__apps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 22px;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 6px;
+    font-size: 13px;
+    font-weight: var(--fw-medium);
+    color: var(--white);
+    text-align: center;
+    text-decoration: none;
+    background: rgb(255 255 255 / 9%);
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 14px;
+    @include transEase((background-color, transform));
+    @include focus-ring(var(--white));
+
+    span {
+      @include flex-center;
+      width: 36px;
+      height: 36px;
+      background: var(--white);
+      border-radius: 10px;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+
+    @include hover {
+      background: rgb(255 255 255 / 18%);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.drawer__foot {
+  @include flex-between(12px);
+  margin-top: auto;
+  padding-top: 14px;
+
+  .drawer__lang {
+    padding: 8px 18px;
+    font-family: var(--arabic-font);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--nf-crimson);
+    text-decoration: none;
+    background: var(--white);
+    border-radius: var(--radius-pill);
+  }
+
+  .drawer__mabraz {
+    width: 110px;
+    padding: 8px 14px;
+    background: var(--nf-plum);
+    border-radius: 18px;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes drawerSheen {
+  to {
+    transform: translateX(120%);
+  }
+}

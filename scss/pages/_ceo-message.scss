@@ -1,0 +1,218 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  CEO Message page
+//  Design (1919 wide): text column 207–886, arch portrait 1067–1561 with the
+//  quote card hanging off its bottom-right (1122–1561).
+// ═══════════════════════════════════════════════════════════════════════════
+
+.ceo-message {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 72px);
+  padding-bottom: clamp(8px, 2vw, 40px);
+
+  @include mq-up("lg") {
+    grid-template-columns: minmax(0, 680px) minmax(0, 494px);
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  @include mq-up("xxl") {
+    // The figure sits 148px in from the content edge in the design.
+    padding-inline-end: clamp(0px, 7.7vw, 148px);
+  }
+}
+
+// ─── Text column ───────────────────────────────────────────────────────────
+.ceo-message__body {
+  @include mq-up("lg") {
+    padding-top: clamp(0px, 3.1vw, 58px);
+  }
+}
+
+.ceo-message__headline {
+  margin: clamp(28px, 2.6vw, 48px) 0 clamp(20px, 1.6vw, 30px);
+  font-family: var(--display-font);
+  font-size: clamp(27px, 3.1vw, 60px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  background: var(--nf-grad-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  // Descenders sit outside the 0.9 line box; padding keeps them painted.
+  padding-bottom: 0.08em;
+}
+
+.ceo-message__text {
+  max-width: 630px;
+  font-size: clamp(15px, 0.84vw, 16px);
+  line-height: 1.5;
+  color: #333;
+
+  p {
+    margin: 0 0 1em;
+  }
+}
+
+// "Read more": the extra paragraphs animate open with the 0fr → 1fr trick.
+.ceo-message__more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease-out);
+
+  > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  &.is-open {
+    grid-template-rows: 1fr;
+  }
+}
+
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 0;
+  font-family: var(--display-font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--nf-navy);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  @include transEase(color);
+  @include focus-ring;
+
+  i {
+    font-size: 13px;
+    -webkit-text-stroke: 0.5px currentcolor;
+    @include transEase(transform);
+  }
+
+  &[aria-expanded="true"] i {
+    transform: rotate(180deg);
+  }
+
+  @include hover {
+    color: var(--nf-crimson);
+  }
+}
+
+.ceo-message__sign {
+  margin-top: clamp(22px, 1.7vw, 30px);
+  font-family: var(--display-font);
+  font-weight: 700;
+
+  strong {
+    display: block;
+    font-size: clamp(19px, 1.15vw, 22px);
+    color: var(--nf-navy);
+  }
+
+  span {
+    display: block;
+    margin-top: 8px;
+    font-size: 16px;
+    color: var(--black);
+  }
+}
+
+// ─── Portrait arch + quote card ────────────────────────────────────────────
+.ceo-figure {
+  position: relative;
+  width: 100%;
+  max-width: 494px;
+  margin: 0;
+  justify-self: center;
+
+  @include mq-up("lg") {
+    justify-self: end;
+  }
+}
+
+.ceo-figure__arch {
+  position: relative;
+  aspect-ratio: 494 / 557;
+  overflow: hidden;
+  isolation: isolate;
+  // Oversized radii get scaled down to a perfect semicircle top.
+  border-radius: 999px 999px 0 0;
+  background:
+    url("../images/ceo-message-arch-bg.jpg") center / cover no-repeat,
+    linear-gradient(160deg, #2a0080 0%, #6a0060 50%, #800055 100%);
+
+  img {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    transform-origin: 50% 100%;
+    transition: transform 1.2s var(--ease-out);
+  }
+
+  @include hover {
+    img {
+      transform: scale(1.03);
+    }
+  }
+}
+
+.ceo-quote {
+  position: relative;
+  // Design: card starts 55px in from the arch's left edge and 109px above its
+  // bottom, and shares its right edge.
+  width: 88.9%;
+  margin: -22% 0 0 auto;
+  padding: clamp(26px, 1.7vw, 32px) clamp(26px, 2.6vw, 52px) clamp(30px, 2.4vw, 46px)
+    clamp(26px, 2.9vw, 56px);
+  background: var(--white);
+  border-radius: clamp(28px, 2.4vw, 46px);
+  // Square where it meets the arch's edge (top-right in LTR, top-left in RTL).
+  border-start-end-radius: 0;
+  box-shadow: 0 18px 40px rgb(48 0 90 / 12%);
+
+  blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: inherit;
+    font-style: normal;
+  }
+
+  p {
+    margin: clamp(14px, 1.2vw, 22px) 0 10px;
+    font-family: var(--display-font);
+    font-size: clamp(16px, 0.94vw, 18px);
+    font-weight: 700;
+    line-height: 1.33;
+    background: var(--nf-grad-text);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  [dir="rtl"] & {
+    margin: -22% auto 0 0;
+  }
+}
+
+.ceo-quote__mark {
+  display: block;
+  width: 36px;
+  height: auto;
+
+  &--close {
+    margin-inline-start: auto;
+  }
+
+  [dir="rtl"] & {
+    scale: -1 1;
+  }
+}

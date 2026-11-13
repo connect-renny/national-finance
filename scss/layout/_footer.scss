@@ -1,0 +1,33 @@
+@use "../abstracts" as *;
+
+// Footer sits on the page gradient, below the white shell.
+.site-footer {
+  color: var(--white);
+  padding-block: clamp(32px, 4.4vw, 84px);
+}
+
+.site-footer__inner {
+  @include flex-between(16px);
+
+  @include mq-down("sm") {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+}
+
+.site-footer__copy {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+// Brand tagline (replaces the footer logo).
+.site-footer__tagline {
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: clamp(16px, 1.05vw, 20px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--white);
+}

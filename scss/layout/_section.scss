@@ -1,0 +1,87 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Section rhythm
+//  One class controls vertical spacing site-wide, and it's fluid — no media
+//  queries needed to tighten sections on mobile.
+// ═══════════════════════════════════════════════════════════════════════════
+
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+
+  &--sm {
+    padding-block: calc(var(--section-space) * 0.6);
+  }
+  &--lg {
+    padding-block: calc(var(--section-space) * 1.4);
+  }
+  &--flush-top {
+    padding-top: 0;
+  }
+  &--flush-bottom {
+    padding-bottom: 0;
+  }
+
+  &--surface {
+    background: var(--color-surface);
+  }
+
+  &--brand {
+    background: var(--color-brand);
+    color: var(--white);
+
+    .section-title,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--white);
+    }
+    .section-lead,
+    .section-eyebrow {
+      color: var(--dark-150);
+    }
+  }
+}
+
+.section-head {
+  margin-bottom: var(--space-xl);
+
+  &--center {
+    text-align: center;
+
+    .section-lead {
+      margin-inline: auto;
+    }
+  }
+}
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.section-title {
+  margin: 0;
+  font-size: var(--fs-fluid-5xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--color-heading);
+  text-wrap: balance;
+}
+
+.section-lead {
+  max-width: 68ch;
+  margin-top: var(--space-sm);
+  margin-bottom: 0;
+  font-size: var(--fs-fluid-md);
+  color: var(--color-text-muted);
+}

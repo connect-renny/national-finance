@@ -1,0 +1,459 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Employee Directory
+//  Design (1919): list column 208–680, details column 751–1710.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Stacked: heading → filters → names → details (filters sit above the list
+// they filter). From xl: names on the left, filters + details on the right.
+.directory {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "filters" "list" "details";
+  row-gap: 24px;
+  margin-top: clamp(40px, 2.9vw, 56px);
+
+  @include mq-up("xl") {
+    grid-template-columns: minmax(0, 31.5%) minmax(0, 1fr);
+    grid-template-areas:
+      "head filters"
+      "list details";
+    column-gap: clamp(40px, 3.7vw, 71px);
+    row-gap: 0;
+    align-items: start;
+  }
+}
+
+.directory__head {
+  grid-area: head;
+
+  @include mq-up("xl") {
+    padding-top: 17px; // heading sits a touch lower than the filter row
+  }
+}
+
+.directory__list {
+  grid-area: list;
+}
+
+.directory__details {
+  grid-area: details;
+  container-type: inline-size;
+}
+
+// ─── Left: list ────────────────────────────────────────────────────────────
+
+.directory__subhead {
+  margin: 0 0 clamp(12px, 0.9vw, 16px);
+
+  @include mq-up("xl") {
+    margin-top: 30px;
+  }
+
+  font-family: var(--display-font);
+  font-size: clamp(19px, 1.15vw, 22px);
+  font-weight: 700;
+  color: #222;
+}
+
+// Scroll box: the 5px track sits 22px off the list, like the design.
+.employee-list {
+  max-height: clamp(300px, 26vw, 496px);
+  margin: 0;
+  padding: 0 22px 0 0;
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #8a0e49 #ececf1;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #ececf1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8a0e49, #4b0a78);
+  }
+
+  li {
+    border-bottom: 1px solid #dcdce4;
+  }
+
+  li[hidden] {
+    display: none;
+  }
+}
+
+.employee-list__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 20px 10px 22px;
+  font-family: var(--display-font);
+  font-size: clamp(16px, 0.94vw, 18px);
+  font-weight: 700;
+  color: #222;
+  text-align: start;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  @include transEase((color, background-color));
+  @include focus-ring;
+
+  // Crimson bar on the active row.
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 1px;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background: #8a0e49;
+    transform: scaleY(0);
+    @include transEase(transform);
+  }
+
+  i {
+    font-size: 14px;
+    -webkit-text-stroke: 0.5px currentcolor;
+    opacity: 0;
+    transform: translateX(-6px);
+    @include transEase((opacity, transform));
+
+    [dir="rtl"] & {
+      scale: -1 1;
+    }
+  }
+
+  @include hover {
+    color: var(--nf-navy);
+    background: #f6f7fc;
+
+    i {
+      opacity: 0.6;
+      transform: none;
+    }
+  }
+
+  &[aria-current="true"] {
+    color: var(--nf-navy);
+
+    &::before {
+      transform: scaleY(1);
+    }
+
+    i {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.directory__empty {
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--color-text-muted);
+  background: var(--nf-surface);
+  border-radius: 8px;
+}
+
+// ─── Right: filters ────────────────────────────────────────────────────────
+.directory__filters {
+  grid-area: filters;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px 14px;
+
+  @include mq-up("sm") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mq-up("md") {
+    grid-template-columns: minmax(0, 295px) minmax(0, 295px) minmax(170px, 1fr);
+  }
+
+  @include mq-up("xl") {
+    margin-bottom: 30px;
+  }
+}
+
+.nf-select {
+  width: 100%;
+  height: 41px;
+  padding: 0 44px 0 24px;
+  font-family: var(--primary-font);
+  font-size: 14px;
+  color: #222;
+  background: var(--white)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23111' stroke-width='1.8' d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E")
+    right 22px center / 12px 8px no-repeat;
+  border: 1px solid #cfd0da;
+  border-radius: 6px;
+  appearance: none;
+  cursor: pointer;
+  @include transEase((border-color, box-shadow));
+
+  &:hover {
+    border-color: #a7a8ba;
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--nf-purple);
+    box-shadow: 0 0 0 3px rgb(75 10 120 / 15%);
+  }
+
+  [dir="rtl"] & {
+    padding: 0 24px 0 44px;
+    background-position: left 22px center;
+  }
+}
+
+.directory-search {
+  position: relative;
+  grid-column: 1 / -1;
+
+  @include mq-up("md") {
+    grid-column: auto;
+    justify-self: end;
+    width: min(100%, 230px);
+  }
+
+  input {
+    width: 100%;
+    height: 41px;
+    padding: 0 34px 0 0;
+    font-family: var(--primary-font);
+    font-size: 14px;
+    color: #222;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    @include transEase(border-color);
+
+    &::placeholder {
+      color: #222;
+      opacity: 1;
+    }
+
+    &:hover,
+    &:focus {
+      border-bottom-color: #cfd0da;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-bottom-color: var(--nf-purple);
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
+    @include mq-down("md") {
+      padding-inline-start: 16px;
+      border: 1px solid #cfd0da;
+      border-radius: 6px;
+    }
+  }
+
+  i {
+    position: absolute;
+    inset-inline-end: 8px;
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 16px;
+    color: #111;
+    pointer-events: none;
+    -webkit-text-stroke: 0.3px currentcolor;
+  }
+
+  [dir="rtl"] & input {
+    padding: 0 0 0 34px;
+  }
+}
+
+// ─── Right: details ────────────────────────────────────────────────────────
+.details-bar {
+  position: relative;
+  margin: 0 0 9px;
+  padding: 12px clamp(20px, 2.2vw, 43px);
+  font-family: var(--display-font);
+  font-size: clamp(19px, 1.25vw, 24px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  isolation: isolate;
+  // Purple → crimson with the two diagonal facets from the design.
+  background:
+    linear-gradient(110deg, #4b0a78 0, #4b0a78 26%, transparent 26.05%),
+    linear-gradient(110deg, transparent 0, transparent 88%, #6c0a6c 88.05%),
+    linear-gradient(90deg, #6a0570 0%, #8a0059 45%, #a4004a 80%, #a0004a 100%);
+
+  // Soft shine that sweeps across once on reveal.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 14%) 50%, transparent 70%);
+    transform: translateX(-100%);
+  }
+
+  @include motion-ok {
+    &.is-revealed::after {
+      transition: transform 1.4s var(--ease-out) 0.4s;
+      transform: translateX(100%);
+    }
+  }
+}
+
+.details-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  min-height: clamp(300px, 25.7vw, 494px);
+  padding: clamp(22px, 2.1vw, 40px) clamp(18px, 2.1vw, 39px) clamp(22px, 2.1vw, 40px) clamp(18px, 2.2vw, 43px);
+  border: 1px solid #a2177a;
+  border-radius: 10px;
+
+  // Photo beside the fields once the card itself is wide enough.
+  // Proportional columns so the values never get squeezed by the photo.
+  @container (width >= 640px) {
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: clamp(20px, 1.4vw, 27px);
+  }
+
+  // Content swap: fade the old person out, the new one in.
+  &.is-switching .details-card__fields,
+  &.is-switching .details-card__photo {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.details-card__fields,
+.details-card__photo {
+  transition:
+    opacity 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+
+.details-list {
+  margin: 0;
+  // The design closes the field column with a rule well below the last row.
+  @container (width >= 640px) {
+    min-height: clamp(260px, 21.4vw, 406px);
+  }
+  border-bottom: 1px solid #e6e6ec;
+
+  > div {
+    display: grid;
+    // Design: label 215px, colon, value at +262px — label and gap shrink
+    // with the card so the value column always keeps most of the room.
+    --gap: clamp(20px, 2.4vw, 47px);
+    grid-template-columns: min(215px, 38%) minmax(0, 1fr);
+    column-gap: var(--gap);
+    align-items: center;
+    min-height: 48px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e6e6ec;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    @container (width < 480px) {
+      --gap: 24px;
+      grid-template-columns: minmax(0, 118px) minmax(0, 1fr);
+    }
+  }
+
+  dt {
+    font-family: var(--display-font);
+    font-size: clamp(15px, 0.84vw, 16px);
+    font-weight: 700;
+    color: #222;
+  }
+
+  dd {
+    position: relative;
+    margin: 0;
+    font-family: var(--display-font);
+    font-size: clamp(15px, 0.84vw, 16px);
+    font-weight: 700;
+    color: var(--nf-navy);
+    overflow-wrap: anywhere;
+
+    // The colon sits in the gap, centred between label and value.
+    &::before {
+      content: ":";
+      position: absolute;
+      inset-inline-start: calc(var(--gap) / -2 - 2px);
+      color: #222;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      @include hover {
+        color: var(--nf-crimson);
+      }
+    }
+  }
+
+  // The name row is a touch larger in the design.
+  > div:first-child dd {
+    font-size: clamp(16px, 0.94vw, 18px);
+  }
+}
+
+.details-card__photo {
+  order: -1;
+  width: min(100%, 220px);
+  aspect-ratio: 280 / 277;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #e9e9ee;
+
+  @container (width >= 640px) {
+    order: 0;
+    width: 100%;
+    max-width: 280px;
+    justify-self: end;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Fallback when an employee has no photo: initials on the brand gradient.
+.details-card__initials {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--display-font);
+  font-size: clamp(48px, 4vw, 72px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  background:
+    radial-gradient(70% 60% at 85% 15%, rgb(202 0 51 / 55%), transparent 70%),
+    linear-gradient(135deg, #1c00a0 0%, #4b0a78 45%, #8a0050 100%);
+}

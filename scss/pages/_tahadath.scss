@@ -1,0 +1,602 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Tahadath — CEO grievance & suggestion line
+//  Design (1919): intro column 207–570, form card 650–1698 with an outline
+//  that fades out along its top and bottom edges, then the four-step Review
+//  Path (310×268 cards, 80px apart, joined by dotted links).
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─── CEO line: intro + form ────────────────────────────────────────────────
+.ceo-line {
+  margin-top: clamp(40px, 3.4vw, 66px);
+}
+
+.ceo-line__grid {
+  display: grid;
+  gap: 32px;
+
+  @include mq-up("lg") {
+    grid-template-columns: minmax(0, 365px) minmax(0, 1fr);
+    gap: clamp(40px, 4.2vw, 80px);
+    align-items: start;
+  }
+}
+
+.ceo-line__intro {
+  @include mq-up("lg") {
+    padding-top: 60px;
+  }
+}
+
+.ceo-line__title {
+  font-size: clamp(28px, 2vw, 38px);
+  line-height: 1.02;
+}
+
+.ceo-line__copy {
+  margin-top: clamp(24px, 2vw, 38px);
+  font-family: var(--display-font);
+  font-weight: 700;
+  font-size: clamp(15px, 0.9vw, 17px);
+  line-height: 1.42;
+  color: var(--black);
+
+  p {
+    margin: 0 0 1.4em;
+  }
+}
+
+// Card with the half outline: full on the left, fading out along the top and
+// bottom edges (mask), open on the right — as designed.
+.ceo-form-card {
+  position: relative;
+  padding: clamp(28px, 3.1vw, 60px) clamp(18px, 2vw, 24px) clamp(32px, 3.9vw, 75px);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid #b3175f;
+    border-inline-end: 0;
+    border-start-start-radius: clamp(36px, 4.6vw, 88px);
+    border-end-start-radius: clamp(36px, 4.6vw, 88px);
+    mask-image: linear-gradient(90deg, #000 0, #000 18%, transparent 34%);
+    pointer-events: none;
+
+    [dir="rtl"] & {
+      mask-image: linear-gradient(270deg, #000 0, #000 18%, transparent 34%);
+    }
+  }
+
+  @include mq-up("lg") {
+    padding-inline: clamp(32px, 4.85vw, 93px) 0;
+  }
+}
+
+.ceo-form__title {
+  margin: 0 0 clamp(18px, 1.3vw, 24px);
+  font-family: var(--display-font);
+  font-size: clamp(26px, 1.8vw, 34px);
+  font-weight: 700;
+  line-height: 1.1;
+  background: var(--nf-grad-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
+
+.ceo-form__grid {
+  display: grid;
+  gap: 16px 21px;
+
+  @include mq-up("md") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ceo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-family: var(--display-font);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0 24px;
+    font-family: var(--primary-font);
+    font-size: 14px;
+    color: #222;
+    background: var(--white);
+    border: 1px solid #cfd0da;
+    border-radius: 8px;
+    @include transEase((border-color, box-shadow));
+
+    &::placeholder {
+      color: #555;
+      opacity: 1;
+    }
+
+    &:hover {
+      border-color: #a7a8ba;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--nf-purple);
+      box-shadow: 0 0 0 3px rgb(75 10 120 / 15%);
+    }
+
+    &[aria-invalid="true"] {
+      border-color: #d0103a;
+    }
+
+    @include mq-down("md") {
+      font-size: 16px; // stops iOS zooming on focus
+    }
+  }
+
+  input {
+    height: 48px;
+  }
+
+  textarea {
+    min-height: 118px;
+    padding-block: 16px;
+    resize: vertical;
+  }
+
+  .nf-select {
+    height: 48px;
+    border-radius: 8px;
+
+    &[aria-invalid="true"] {
+      border-color: #d0103a;
+    }
+
+    &:has(option[value=""]:checked) {
+      color: #555;
+    }
+  }
+}
+
+.ceo-field__error {
+  font-size: 13px;
+  color: #d0103a;
+}
+
+.ceo-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  margin-top: 21px;
+}
+
+.ceo-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 134px;
+  height: 50px;
+  padding: 0 36px;
+  overflow: hidden;
+  font-family: var(--display-font);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    transform 0.35s var(--ease-spring),
+    box-shadow 0.3s var(--ease-out),
+    background-color 0.3s,
+    color 0.3s;
+  @include focus-ring;
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &--primary {
+    min-width: 198px;
+    color: var(--white);
+    border: 0;
+    background: linear-gradient(90deg, #9a0052 0%, #5e0a74 55%, #2a0a96 100%);
+    box-shadow: 0 8px 18px rgb(110 10 100 / 22%);
+
+    span {
+      position: relative;
+      z-index: 1;
+    }
+
+    // Sheen
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 -60%;
+      width: 40%;
+      background: linear-gradient(90deg, transparent, rgb(255 255 255 / 35%), transparent);
+      transform: skewX(-20deg);
+    }
+
+    @include hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgb(110 10 100 / 32%);
+
+      &::after {
+        left: 130%;
+        transition: left 0.8s var(--ease-out);
+      }
+    }
+  }
+
+  &--ghost {
+    color: var(--nf-purple);
+    background: var(--white);
+    border: 1px solid var(--nf-purple);
+
+    @include hover {
+      color: var(--white);
+      background: var(--nf-purple);
+    }
+  }
+
+  &.is-sending {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+}
+
+.ceo-form__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #0b5d3a;
+  background: #e9f8f0;
+  border-radius: 8px;
+  animation: statusIn 0.5s var(--ease-spring) both;
+
+  i {
+    font-size: 18px;
+  }
+
+  strong {
+    font-family: var(--mono-font);
+  }
+}
+
+@keyframes statusIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+// ─── Review path ───────────────────────────────────────────────────────────
+// Each step shows its number in a badge ringed by a slowly turning dotted
+// circle. Once the list scrolls into view main.js walks an "active" state
+// along the path: the card floods with the brand gradient from its badge
+// outwards, the dotted link behind it fills in with a solid line and a glow
+// runs along it into the next card. Hover a card to stop on it.
+// Without JS (or with reduced motion) step 2 stays active, as designed.
+.review-path {
+  margin-top: clamp(36px, 2.6vw, 50px);
+  padding-bottom: clamp(24px, 2.4vw, 46px);
+
+  .section-heading {
+    margin-bottom: clamp(30px, 2.4vw, 46px);
+  }
+}
+
+.review-steps {
+  --gap: clamp(44px, 4.2vw, 80px);
+  --link: linear-gradient(90deg, #b0005a, #1c00a0);
+
+  display: grid;
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include mq-up("md") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mq-up("xl") {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.review-step {
+  --fill-at: 50% 75px; // where the active flood starts (badge centre)
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: clamp(220px, 14vw, 268px);
+  padding: 36px 24px 32px;
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  background:
+    linear-gradient(var(--white), var(--white)) padding-box,
+    linear-gradient(180deg, #4b0a78, #d0479a) border-box;
+  transition:
+    transform 0.6s var(--ease-spring),
+    box-shadow 0.6s var(--ease-out);
+
+  // Active flood: two-tone diagonal like the design, revealed as a circle
+  // growing out of the badge.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(152deg, transparent 52%, rgb(60 0 150 / 45%) 52%),
+      linear-gradient(100deg, #8a0058 0%, #6a0a6c 55%, #4b0a78 100%);
+    clip-path: circle(0 at var(--fill-at));
+    transition: clip-path 0.9s var(--ease-out);
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &.is-active {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 40px rgb(75 10 120 / 26%);
+
+    &::before {
+      clip-path: circle(150% at var(--fill-at));
+    }
+
+    .review-step__num {
+      color: var(--nf-purple);
+      background: var(--white);
+
+      &::after {
+        border-color: rgb(255 255 255 / 85%);
+      }
+    }
+
+    .review-step__text {
+      color: var(--white);
+    }
+  }
+}
+
+.review-step__num {
+  position: relative;
+  @include flex-center;
+  width: 52px;
+  height: 52px;
+  margin: 12px 0 34px;
+  font-family: var(--display-font);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  border-radius: var(--radius-circle);
+  background: linear-gradient(90deg, #a0004a, #3d0a8c);
+  transition:
+    color 0.5s,
+    background 0.5s;
+
+  // Dotted halo
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -13px;
+    border: 1.5px dotted #b3175f;
+    border-radius: inherit;
+    transition: border-color 0.5s;
+  }
+}
+
+.review-step__text {
+  max-width: 230px;
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: clamp(15px, 0.95vw, 17px);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--black);
+  transition: color 0.5s;
+}
+
+// Dotted link to the next card. Horizontal on the four-up row, vertical
+// when the cards stack; hidden on the 2×2 tablet grid.
+.review-step__link {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+
+  // Base dots
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  &::before {
+    background: var(--link);
+    mask: radial-gradient(circle, #000 1px, transparent 1.3px) 0 50% / 5px 3px repeat-x;
+  }
+
+  // Progress fill + travelling glow (driven by .is-done on the card)
+  &::after {
+    background: var(--link);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s var(--ease-out);
+  }
+
+  // Horizontal (4-up)
+  @include mq-up("xl") {
+    top: 50%;
+    left: calc(100% + 1px);
+    width: calc(var(--gap) - 2px);
+    height: 3px;
+    translate: 0 -50%;
+
+    [dir="rtl"] & {
+      right: calc(100% + 1px);
+      left: auto;
+      scale: -1 1;
+    }
+  }
+
+  // 2×2 grid: no link
+  @include mq-between("md", "xl") {
+    display: none;
+  }
+
+  // Stacked: vertical, centred under the card
+  @include mq-down("md") {
+    top: calc(100% + 1px);
+    left: 50%;
+    width: 3px;
+    height: calc(var(--gap) - 2px);
+    translate: -50% 0;
+
+    &::before {
+      background: linear-gradient(180deg, #b0005a, #1c00a0);
+      mask: radial-gradient(circle, #000 1px, transparent 1.3px) 50% 0 / 3px 5px repeat-y;
+    }
+
+    &::after {
+      background: linear-gradient(180deg, #b0005a, #1c00a0);
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+  }
+}
+
+.review-step.is-done .review-step__link::after {
+  transform: none;
+}
+
+// ─── Motion ────────────────────────────────────────────────────────────────
+@include motion-ok {
+  // Dotted halos turn slowly, the active one faster.
+  .review-step__num::after {
+    animation: haloSpin 14s linear infinite;
+  }
+
+  .review-step.is-active .review-step__num {
+    animation: badgePop 0.7s var(--ease-spring);
+
+    &::after {
+      animation-duration: 5s;
+    }
+  }
+
+  // Pulse ring out of the active badge.
+  .review-step.is-active .review-step__num::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 rgb(255 255 255 / 55%);
+    animation: badgePulse 1.8s var(--ease-out) 0.4s infinite;
+  }
+
+  // Comet on the link into the active card.
+  .review-step.is-flowing .review-step__link {
+    filter: drop-shadow(0 0 4px rgb(208 71 154 / 80%));
+  }
+
+  // Entrance: held until the list is in view, then cards rise in turn,
+  // badges pop and links draw left to right.
+  .review-steps.is-waiting {
+    .review-step {
+      opacity: 0;
+      transform: translateY(36px) scale(0.96);
+    }
+
+    .review-step__num {
+      transform: scale(0);
+    }
+
+    .review-step__link::before {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  .review-steps.is-entering {
+    .review-step {
+      animation: stepIn 0.8s var(--ease-out) both;
+      animation-delay: calc(var(--i) * 180ms);
+    }
+
+    .review-step__num {
+      animation: badgeIn 0.7s var(--ease-spring) both;
+      animation-delay: calc(var(--i) * 180ms + 250ms);
+    }
+
+    .review-step__link::before {
+      animation: linkDraw 0.6s var(--ease-out) both;
+      animation-delay: calc(var(--i) * 180ms + 450ms);
+    }
+  }
+}
+
+@keyframes haloSpin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes badgePop {
+  40% {
+    scale: 1.18;
+  }
+}
+
+@keyframes badgePulse {
+  to {
+    box-shadow: 0 0 0 18px rgb(255 255 255 / 0%);
+  }
+}
+
+@keyframes stepIn {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.96);
+  }
+}
+
+@keyframes badgeIn {
+  from {
+    transform: scale(0) rotate(-90deg);
+  }
+}
+
+@keyframes linkDraw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}

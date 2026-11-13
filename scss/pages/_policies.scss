@@ -1,0 +1,306 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Policies
+//  Design (1919): two 742px columns with a 17px gap, 54px rows 11px apart,
+//  and a thin scroll track 40px outside the content edge.
+// ═══════════════════════════════════════════════════════════════════════════
+
+.policy-library {
+  margin-top: clamp(40px, 4vw, 77px);
+}
+
+.policy-library__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-bottom: clamp(22px, 1.4vw, 26px);
+}
+
+.policy-search {
+  position: relative;
+  width: min(100%, 440px);
+  margin-top: 12px;
+
+  input {
+    width: 100%;
+    height: 40px;
+    padding: 0 34px 0 0;
+    font-family: var(--primary-font);
+    font-size: 14px;
+    color: #222;
+    text-align: end;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    @include transEase(border-color);
+
+    &::placeholder {
+      color: #222;
+      opacity: 1;
+    }
+
+    &:hover,
+    &:focus {
+      border-bottom-color: #cfd0da;
+    }
+
+    &:focus {
+      text-align: start;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-bottom-color: var(--nf-purple);
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
+    @include mq-down("md") {
+      padding-inline-start: 16px;
+      text-align: start;
+      border: 1px solid #cfd0da;
+      border-radius: 6px;
+    }
+  }
+
+  i {
+    position: absolute;
+    inset-inline-end: 8px;
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 16px;
+    color: #111;
+    pointer-events: none;
+    -webkit-text-stroke: 0.3px currentcolor;
+  }
+
+  [dir="rtl"] & input {
+    padding: 0 0 0 34px;
+  }
+}
+
+// ─── Scroll frame (desktop) ────────────────────────────────────────────────
+// The track sits 40px outside the content edge, like the design.
+// Switched off for now at the client's request: the list runs at full
+// height. Set this back to true to restore the scroll frame (and put
+// `data-lenis-prevent` back on .policy-scroll in policies.html).
+$policy-scroll-frame: false;
+
+.policy-scroll {
+  @if $policy-scroll-frame {
+  @include mq-up("xl") {
+    max-height: clamp(460px, 28vw, 530px);
+    // -47px = 40px gap + the 7px track, so the columns end on the content edge.
+    margin-inline-end: -47px;
+    padding-inline-end: 40px;
+    padding-bottom: 2px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #7a0a6a #ececf1;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #ececf1;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #8a0e49, #4b0a78);
+    }
+  }
+  }
+}
+
+// Two independent columns (odd numbers left, even right) so opening an item
+// only pushes down its own column. Below lg they merge into one list in
+// number order (display: contents + order).
+.policy-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+
+  @include mq-up("lg") {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 17px;
+  }
+}
+
+.policy-col {
+  display: contents;
+
+  @include mq-up("lg") {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+}
+
+.policy-item {
+  order: var(--n);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.policy-item__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 0.8vw, 15px);
+  width: 100%;
+  min-height: 54px;
+  padding: 10px clamp(18px, 2.1vw, 40px) 10px clamp(16px, 1.3vw, 25px);
+  font-family: var(--display-font);
+  font-size: clamp(16px, 1.05vw, 20px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #222;
+  text-align: start;
+  background: var(--white);
+  border: 1px solid #a2177a;
+  border-radius: 6px;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  @include transEase((color, border-color, box-shadow));
+  @include focus-ring;
+
+  // Gradient fill fades in for the open item (backgrounds can't transition).
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    background: linear-gradient(90deg, #4b0a78 0%, #6c0868 50%, #8f0052 100%);
+    opacity: 0;
+    @include transEase(opacity);
+  }
+
+  .policy-item__num {
+    flex-shrink: 0;
+    min-width: 1.6em;
+  }
+
+  .policy-item__title {
+    flex: 1;
+  }
+
+  i {
+    flex-shrink: 0;
+    font-size: 14px;
+    -webkit-text-stroke: 0.6px currentcolor;
+    @include transEase(transform);
+  }
+
+  @include hover {
+    border-color: var(--nf-purple);
+    box-shadow: 0 6px 18px rgb(75 10 120 / 10%);
+  }
+
+  &[aria-expanded="true"] {
+    color: var(--white);
+    border-color: transparent;
+
+    &::before {
+      opacity: 1;
+    }
+
+    i {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// Panel: animates open with the 0fr → 1fr trick.
+.policy-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ease-out);
+
+  > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  &.is-open {
+    grid-template-rows: 1fr;
+  }
+}
+
+.policy-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: clamp(18px, 1.3vw, 24px) clamp(16px, 1.2vw, 22px) clamp(20px, 1.4vw, 26px);
+  border: 1px solid #a2177a;
+  border-radius: 6px;
+
+  @include mq-up("sm") {
+    grid-template-columns: 77px minmax(0, 1fr);
+    gap: 0;
+  }
+
+  dt {
+    font-family: var(--display-font);
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--primary-font);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #333;
+  }
+}
+
+.policy-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  font-family: var(--display-font);
+  font-size: 15px;
+  font-weight: 700;
+  color: #8a0e49;
+  text-decoration: none;
+  @include transEase(color);
+  @include focus-ring;
+
+  svg {
+    width: 18px;
+    height: 22px;
+    flex-shrink: 0;
+    @include transEase(transform);
+  }
+
+  @include hover {
+    color: var(--nf-purple);
+
+    svg {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.policy-empty {
+  margin: 0;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--color-text-muted);
+  background: var(--nf-surface);
+  border-radius: 8px;
+}

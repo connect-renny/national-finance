@@ -1,0 +1,427 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Page shell + site header
+//
+//  The page sits on a purple gradient ground; everything except the footer
+//  lives in one white, round-cornered `.site-shell`. The header is the shell's
+//  top edge — a white pill that becomes sticky (and floats) on scroll.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Page ground: the supplied artwork, with the CSS gradient underneath as a
+// fallback while the image loads (and for any area the image doesn't cover).
+// Page ground: the diagonal artwork pinned to the top at full width, over a
+// left→right purple-to-crimson gradient that fills the rest of the page.
+// The artwork's bottom edge uses the same colours, so the join doesn't show.
+// On narrow screens the artwork keeps a 960px minimum width (centred) so the
+// diagonal stays visible instead of shrinking to a thin strip.
+body {
+  background:
+    url("../images/page-background-gradient.jpg") center top / max(100%, 960px) auto no-repeat,
+    linear-gradient(90deg, #5b0069 0%, #6f005f 50%, #810055 100%);
+  background-color: #5b0069;
+}
+
+.site-shell {
+  position: relative;
+  // Design: 29px above the shell, 67px either side.
+  margin: clamp(10px, 1.5vw, 29px) var(--shell-gap) 0;
+  background: var(--white);
+  border-radius: clamp(24px, 3.2vw, 62px) clamp(24px, 3.2vw, 62px)
+    clamp(28px, 4.4vw, 84px) clamp(28px, 4.4vw, 84px);
+  // clip (not hidden) keeps position: sticky on the header working.
+  overflow: clip;
+  overflow-clip-margin: 0;
+  padding-bottom: clamp(40px, 5vw, 96px);
+}
+
+// Shared inner column — the design's content runs ~1446px inside the shell.
+.shell-container {
+  width: 100%;
+  max-width: 1533px; // 1501px of content + 16px gutters (design: 208–1709 at 1919)
+  margin-inline: auto;
+  padding-inline: clamp(16px, 5vw, 136px);
+
+  @include mq-up("xxxl") {
+    padding-inline: 16px;
+  }
+}
+
+// ─── Header ────────────────────────────────────────────────────────────────
+$header-glass: true;
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  padding: 0;
+  @include transEase(padding);
+
+  &.is-stuck {
+    padding: 10px clamp(6px, 1vw, 14px) 0;
+  }
+}
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 28px);
+  min-height: clamp(76px, 6.4vw, 122px);
+  padding-block: 12px;
+  padding-inline: clamp(16px, 2.8vw, 54px) clamp(10px, 0.8vw, 14px);
+  background: var(--white);
+  border-radius: clamp(24px, 3.2vw, 62px);
+  box-shadow: 0 10px 22px rgb(17 10 80 / 10%);
+  @include transEase((min-height, box-shadow, border-radius));
+
+  .is-stuck & {
+    min-height: clamp(66px, 5vw, 92px);
+    box-shadow: 0 14px 40px rgb(30 0 90 / 22%);
+  }
+
+  // TEST: glassmorphism on the stuck bar. Set $header-glass to false to revert.
+  @if $header-glass {
+    .is-stuck & {
+      background: rgb(255 255 255 / 75%);
+      border: 1px solid rgb(255 255 255 / 60%);
+      box-shadow:
+        0 14px 40px rgb(30 0 90 / 18%),
+        inset 0 1px 0 rgb(255 255 255 / 70%);
+      backdrop-filter: blur(18px) saturate(170%);
+      -webkit-backdrop-filter: blur(18px) saturate(170%);
+    }
+  }
+}
+
+.site-logo {
+  flex-shrink: 0;
+  display: block;
+
+  img {
+    width: clamp(86px, 6.3vw, 119px);
+    height: auto;
+    @include transEase(width);
+
+    .is-stuck & {
+      width: clamp(76px, 5.2vw, 100px);
+    }
+  }
+}
+
+// ─── Desktop nav ───────────────────────────────────────────────────────────
+.primary-nav {
+  margin-inline-start: auto;
+
+  @include mq-down("xl") {
+    display: none;
+  }
+}
+
+.primary-nav__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li + li {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      top: 50%;
+      width: 1px;
+      height: 20px;
+      translate: 0 -50%;
+      background: #b9bbcb;
+    }
+  }
+}
+
+.primary-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px clamp(8px, 1.05vw, 20px);
+  // Design: Foundry Monoline Bold, 16px, black.
+  font-family: var(--display-font);
+  font-size: clamp(14px, 0.84vw, 16px);
+  font-weight: 700;
+  color: var(--black);
+  text-decoration: none;
+  white-space: nowrap;
+
+  img {
+    width: 22px;
+    height: 22px;
+    @include transEase(transform, $easing: var(--ease-spring));
+  }
+
+  // Gradient underline that grows from the centre.
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: clamp(8px, 1.05vw, 20px);
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--nf-grad-text);
+    transform: scaleX(0);
+    @include transEase(transform);
+  }
+
+  @include hover {
+    color: var(--nf-crimson);
+
+    img {
+      transform: translateY(-2px) scale(1.12);
+    }
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  &[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  @include focus-ring;
+}
+
+// ─── Tools: bell, user, language, hamburger ────────────────────────────────
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 0.9vw, 16px);
+  margin-inline-start: clamp(0px, 0.4vw, 8px);
+
+  @include mq-down("xl") {
+    margin-inline-start: auto;
+  }
+}
+
+.header-bell {
+  position: relative;
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-circle);
+  @include transEase(background-color);
+  @include focus-ring;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    transform-origin: 50% 10%;
+  }
+
+  .header-bell__dot {
+    position: absolute;
+    top: 6px;
+    inset-inline-end: 8px;
+    width: 10px;
+    height: 10px;
+    background: #f5001e;
+    border: 1.5px solid var(--white);
+    border-radius: var(--radius-circle);
+  }
+
+  @include hover {
+    background: var(--nf-surface);
+
+    svg {
+      animation: bellRing 0.8s var(--ease-out);
+    }
+  }
+
+  @include motion-ok {
+    .header-bell__dot::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: #ff1640;
+      animation: pingDot 2s var(--ease-out) infinite;
+    }
+  }
+}
+
+.header-user {
+  .header-user__toggle {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 0;
+    border-radius: var(--radius-pill);
+    @include focus-ring;
+
+    img {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+      box-shadow: 0 0 0 2px var(--white), 0 0 0 3px var(--nf-line);
+    }
+
+    .header-user__name {
+      font-size: 14px;
+      line-height: 1.2;
+      color: var(--nf-navy);
+      white-space: nowrap;
+
+      strong {
+        font-weight: 700;
+      }
+
+      // No room on phones, nor at 1200–1399px where the inline nav fills the bar.
+      @include mq-down("md") {
+        display: none;
+      }
+
+      @include mq-between("xl", "xxl") {
+        display: none;
+      }
+    }
+
+    i {
+      font-size: 12px;
+      color: var(--black);
+      -webkit-text-stroke: 0.6px currentcolor;
+      @include transEase(transform);
+    }
+
+    &[aria-expanded="true"] i {
+      transform: rotate(180deg);
+    }
+
+    @include mq-down("sm") {
+      i {
+        display: none;
+      }
+
+      img {
+        width: 38px;
+        height: 38px;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    --bs-dropdown-min-width: 200px;
+    --bs-dropdown-border-color: var(--nf-line);
+    --bs-dropdown-border-radius: 14px;
+    --bs-dropdown-link-color: var(--nf-navy);
+    --bs-dropdown-link-hover-bg: var(--nf-surface);
+    --bs-dropdown-link-active-bg: var(--nf-purple);
+    --bs-dropdown-padding-y: 8px;
+    --bs-dropdown-item-padding-y: 9px;
+    margin-top: 12px !important;
+    font-size: 15px;
+    box-shadow: 0 18px 40px rgb(30 0 90 / 16%);
+
+    i {
+      margin-inline-end: 8px;
+      color: var(--nf-crimson);
+    }
+  }
+}
+
+.header-lang {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  font-family: var(--arabic-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--nf-crimson);
+  text-decoration: none;
+  border: 1px solid #d9dbe6;
+
+  // Blue → crimson gradient lettering, as designed.
+  span {
+    background: var(--nf-grad-text);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  border-radius: var(--radius-pill);
+  @include transEase((background-color, color, border-color));
+  @include focus-ring;
+
+  @include hover {
+    background: var(--nf-crimson);
+    border-color: var(--nf-crimson);
+
+    span {
+      background: none;
+      color: var(--white);
+    }
+  }
+
+  @include mq-down("md") {
+    display: none;
+  }
+}
+
+// ─── Al Mabraz badge ───────────────────────────────────────────────────────
+.al-mabraz {
+  flex-shrink: 0;
+  @include flex-center;
+  width: clamp(104px, 11.5vw, 220px);
+  height: clamp(54px, 4.95vw, 95px);
+  background: #48064e;
+  // Design: near-square top-left, generous curves on the other three so the
+  // right side runs parallel to the header's rounded end.
+  border-radius: 4px clamp(22px, 2.9vw, 56px) clamp(20px, 2.5vw, 48px)
+    clamp(18px, 2.2vw, 42px);
+  overflow: hidden;
+  @include transEase(height);
+
+  img {
+    width: 70%;
+    height: auto;
+  }
+
+  .is-stuck & {
+    height: clamp(50px, 3.8vw, 72px);
+  }
+
+  @include mq-down("sm") {
+    display: none;
+  }
+}
+
+@keyframes bellRing {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-12deg);
+  }
+  60% {
+    transform: rotate(8deg);
+  }
+  80% {
+    transform: rotate(-4deg);
+  }
+}
+
+@keyframes pingDot {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
