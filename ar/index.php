@@ -318,7 +318,7 @@ require __DIR__ . '/../includes/header.php';
               <article class="feature-card events-card" data-reveal="right" style="--reveal-delay: 240ms">
                 <div class="events-card__head">
                   <h3>الفعاليات القادمة</h3>
-                  <a class="events-card__icon" href="#" aria-label="جميع الفعاليات القادمة">
+                  <a class="events-card__icon" href="events.php" aria-label="جميع الفعاليات القادمة">
                     <img src="../assets/images/icon-upcoming-events.png" alt="" width="36" height="36" />
                   </a>
                 </div>

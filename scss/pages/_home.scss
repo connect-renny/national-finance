@@ -929,62 +929,9 @@
 // The date chips and the header icon share the app cards' flowing gradient:
 // it bursts out from the centre on hover, keeps sliding purple → blue →
 // crimson, and a sheen sweeps across once.
+// Shared with the Upcoming Events page — see events-flow in abstracts/_mixins.
 %events-flow {
-  position: relative;
-  @include flex-center;
-  border: 0;
-  border-radius: 10px;
-  box-shadow: inset 0 0 0 1px var(--nf-line);
-  isolation: isolate;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(
-      110deg,
-      #5b0069 0%,
-      #3d0a8c 18%,
-      #1c00a0 32%,
-      #6a0a72 50%,
-      #a0004a 68%,
-      #6a0a72 84%,
-      #5b0069 100%
-    );
-    background-size: 200% 100%;
-    clip-path: circle(0% at 50% 50%);
-    transition: clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 30%) 50%, transparent 65%);
-    transform: translateX(-120%);
-    pointer-events: none;
-  }
-}
-
-@mixin events-flow-on {
-  box-shadow: inset 0 0 0 1px transparent;
-
-  &::before {
-    clip-path: circle(75% at 50% 50%);
-  }
-
-  @include motion-ok {
-    &::before {
-      animation: appFlow 2.6s linear infinite;
-    }
-
-    &::after {
-      animation: appSheen 0.9s var(--ease-out) 0.15s;
-    }
-  }
+  @include events-flow;
 }
 
 .events-card {

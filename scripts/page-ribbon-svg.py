@@ -52,6 +52,9 @@ RIBBONS["policies"] = dict(RIBBONS["employee"], prefix="pol")
 RIBBONS["news"] = dict(RIBBONS["employee"], prefix="nws", place="translate(-287 -90)")
 RIBBONS["tahadath"] = dict(RIBBONS["news"], prefix="tah")
 
+# Upcoming Events uses the Employee Directory ribbon and placement.
+RIBBONS["events"] = dict(RIBBONS["employee"], prefix="evt")
+
 name = sys.argv[1] if len(sys.argv) > 1 else "employee"
 TOTAL = float(sys.argv[2]) if len(sys.argv) > 2 else 1.6
 cfg = RIBBONS[name]
