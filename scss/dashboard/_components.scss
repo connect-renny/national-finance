@@ -1,0 +1,312 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Dashboard building blocks shared by every page.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Brand gradient stroke (#iconGrad is defined once in the header).
+.icon--grad {
+  stroke: url("#iconGrad");
+}
+
+@mixin grad-text {
+  background: var(--dash-grad-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+// ─── Page title ────────────────────────────────────────────────────────────
+.dash-title {
+  margin-bottom: clamp(16px, 1.4vw, 22px);
+
+  h1 {
+    @include grad-text;
+    width: fit-content;
+    margin: 0;
+    font-family: var(--display-font);
+    font-size: clamp(28px, 2vw, 36px);
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 16px;
+    color: var(--dash-muted);
+  }
+}
+
+// ─── Card ──────────────────────────────────────────────────────────────────
+.dash-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(16px, 1.3vw, 22px);
+  border: 1px solid var(--dash-line);
+  border-radius: var(--dash-radius);
+  background: var(--white);
+  box-shadow: var(--dash-shadow);
+}
+
+.dash-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.dash-card__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: clamp(19px, 1.25vw, 22px);
+  line-height: 1.25;
+  color: var(--color-brand);
+
+  .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+// Only the words get the gradient; the icon keeps its own stroke.
+.dash-card__title {
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    > :not(svg) {
+      @include grad-text;
+    }
+  }
+}
+
+.dash-card__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  margin-inline-end: -10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  color: #2d1fa0;
+  @include transEase((background-color, color));
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    --icon-stroke: 2.25;
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+    color: var(--nf-crimson);
+  }
+}
+
+// Rows separated by hairlines (to-do, reminders, bookmarks, activity).
+.dash-list > li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--dash-line);
+
+  &:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+// Square icon tile.
+.dash-tile {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--dash-tint);
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.dash-kebab {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--dash-ink);
+  @include transEase((background-color, color));
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    --icon-stroke: 2.5;
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+    color: var(--color-brand);
+  }
+
+  &[aria-expanded="true"] {
+    background: var(--dash-tint);
+    color: var(--color-brand);
+  }
+}
+
+// ─── Buttons ───────────────────────────────────────────────────────────────
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 22px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  @include transEase((background-color, color, border-color, box-shadow, transform));
+  @include focus-ring;
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// White with a soft lavender rim (Edit Profile).
+.dash-btn--ghost {
+  border-color: #cfc8ea;
+  background: var(--white);
+  color: var(--color-brand);
+
+  @include hover {
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+    box-shadow: 0 8px 18px rgb(75 10 120 / 14%);
+    transform: translateY(-1px);
+  }
+}
+
+// Navy outline (Cancel).
+.dash-btn--outline {
+  border-color: var(--nf-navy);
+  background: var(--white);
+  color: var(--nf-navy);
+
+  @include hover {
+    background: var(--nf-navy);
+    color: var(--white);
+  }
+}
+
+// Crimson → purple (Save Changes, Upload).
+.dash-btn--primary,
+.dash-btn--brand {
+  background: linear-gradient(90deg, #a0004a, #4b0a78);
+  color: var(--white);
+
+  &:not(:disabled):hover {
+    color: var(--white);
+    box-shadow: 0 8px 18px rgb(160 0 74 / 28%);
+    transform: translateY(-1px);
+  }
+}
+
+// ─── Form controls ─────────────────────────────────────────────────────────
+.dash-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid #cfd3e0;
+  border-radius: 8px;
+  background: var(--white);
+  font: inherit;
+  font-size: 15px;
+  color: var(--dash-ink);
+  @include transEase((border-color, box-shadow));
+
+  &:hover {
+    border-color: #a9aec4;
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px rgb(75 10 120 / 14%);
+  }
+
+  &[aria-invalid="true"] {
+    border-color: var(--nf-crimson);
+  }
+}
+
+textarea.dash-input {
+  min-height: 108px;
+  resize: vertical;
+}
+
+// Custom checkbox: rounded square → brand gradient with a white tick.
+.dash-check {
+  appearance: none;
+  flex-shrink: 0;
+  display: grid;
+  place-content: center;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1.5px solid #b4b8ca;
+  border-radius: 5px;
+  background: var(--white);
+  cursor: pointer;
+  @include transEase((background-color, border-color));
+  @include focus-ring;
+
+  &::after {
+    content: "";
+    width: 10px;
+    height: 6px;
+    margin-top: -2px;
+    border: solid var(--white);
+    border-width: 0 0 2px 2px;
+    transform: rotate(-45deg) scale(0);
+    @include transEase(transform, var(--ease-spring));
+  }
+
+  &:checked {
+    border-color: transparent;
+    background: var(--dash-grad);
+
+    &::after {
+      transform: rotate(-45deg) scale(1);
+    }
+  }
+
+  &:hover:not(:checked) {
+    border-color: var(--color-brand);
+  }
+}

@@ -9,11 +9,15 @@
 //  Rubik Variable stays as the fallback in each stack and covers Arabic.
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Font folder relative to the compiled CSS. The dashboard's CSS sits two
+// folders deeper, so it overrides this with `@use ... with ($font-path: ...)`.
+$font-path: "../fonts" !default;
+
 @font-face {
   font-family: "Foundry Monoline";
   src:
-    url("../fonts/FoundryMonoline-Bold.woff2") format("woff2"),
-    url("../fonts/FoundryMonoline-Bold.woff") format("woff");
+    url("#{$font-path}/FoundryMonoline-Bold.woff2") format("woff2"),
+    url("#{$font-path}/FoundryMonoline-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -22,8 +26,8 @@
 @font-face {
   font-family: "Foundry Form Sans";
   src:
-    url("../fonts/FoundryFormSans-Medium.woff2") format("woff2"),
-    url("../fonts/FoundryFormSans-Medium.woff") format("woff");
+    url("#{$font-path}/FoundryFormSans-Medium.woff2") format("woff2"),
+    url("#{$font-path}/FoundryFormSans-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -32,8 +36,8 @@
 @font-face {
   font-family: "Foundry Form Sans";
   src:
-    url("../fonts/FoundryFormSans-Bold.woff2") format("woff2"),
-    url("../fonts/FoundryFormSans-Bold.woff") format("woff");
+    url("#{$font-path}/FoundryFormSans-Bold.woff2") format("woff2"),
+    url("#{$font-path}/FoundryFormSans-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -42,7 +46,7 @@
 // ─── Fallback: Rubik Variable (300–900) ────────────────────────────────────
 @font-face {
   font-family: "Rubik Variable";
-  src: url("../fonts/rubik-latin-wght-normal.woff2") format("woff2-variations");
+  src: url("#{$font-path}/rubik-latin-wght-normal.woff2") format("woff2-variations");
   font-weight: 300 900;
   font-style: normal;
   font-display: swap;
@@ -54,7 +58,7 @@
 
 @font-face {
   font-family: "Rubik Variable";
-  src: url("../fonts/rubik-arabic-wght-normal.woff2") format("woff2-variations");
+  src: url("#{$font-path}/rubik-arabic-wght-normal.woff2") format("woff2-variations");
   font-weight: 300 900;
   font-style: normal;
   font-display: swap;
@@ -68,7 +72,7 @@
 // Used for the Arabic language switch in the header and drawer (--arabic-font).
 @font-face {
   font-family: Cairo;
-  src: url("../fonts/Cairo-Arabic.woff2") format("woff2");
+  src: url("#{$font-path}/Cairo-Arabic.woff2") format("woff2");
   font-weight: 200 1000;
   font-style: normal;
   font-display: swap;
@@ -80,7 +84,7 @@
 
 @font-face {
   font-family: Cairo;
-  src: url("../fonts/Cairo-Latin.woff2") format("woff2");
+  src: url("#{$font-path}/Cairo-Latin.woff2") format("woff2");
   font-weight: 200 1000;
   font-style: normal;
   font-display: swap;

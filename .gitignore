@@ -4,6 +4,7 @@ node_modules/
 assets/css/style.css
 assets/css/style.min.css
 assets/css/*.map
+assets/dashboard/css/
 
 .DS_Store
 Thumbs.db

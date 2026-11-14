@@ -277,6 +277,12 @@ require __DIR__ . '/includes/header.php';
                   BI
                 </a>
               </li>
+              <li data-reveal style="--reveal-delay: 400ms">
+                <a class="app-card app-card--feature" href="dashboard/index.php">
+                  <span class="app-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/images/icons.svg#calendar-check" /></svg></span>
+                  Task Organizer
+                </a>
+              </li>
             </ul>
 
             <div class="feature-grid">

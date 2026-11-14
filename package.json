@@ -7,12 +7,14 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "npm-run-all --parallel watch:css serve",
+    "dev": "npm-run-all --parallel watch:css watch:dashboard serve",
     "serve": "browser-sync start --server --files \"*.html, assets/css/*.css, assets/js/*.js\" --no-notify --port 3000",
     "watch:css": "sass --watch scss/style.scss:assets/css/style.css --style=expanded --source-map",
     "build:css": "sass scss/style.scss:assets/css/style.css --style=expanded --no-source-map && sass scss/style.scss:assets/css/style.min.css --style=compressed --no-source-map",
     "prefix": "postcss assets/css/style.css assets/css/style.min.css --replace",
-    "build": "npm run build:css && npm run prefix",
+    "build:dashboard": "sass scss/dashboard/dashboard.scss:assets/dashboard/css/dashboard.css scss/dashboard/pages:assets/dashboard/css/pages --style=expanded --no-source-map && postcss \"assets/dashboard/css/**/*.css\" --replace",
+    "watch:dashboard": "sass --watch scss/dashboard/dashboard.scss:assets/dashboard/css/dashboard.css scss/dashboard/pages:assets/dashboard/css/pages --style=expanded --source-map",
+    "build": "npm run build:css && npm run prefix && npm run build:dashboard",
     "vendor": "node scripts/vendor.mjs",
     "lint:css": "stylelint \"scss/**/*.scss\"",
     "format": "prettier --write \"**/*.{html,scss,js,mjs,json,md}\"",

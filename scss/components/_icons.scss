@@ -1,0 +1,18 @@
+// Lucide icons from the sprite at assets/images/icons.svg.
+//   <svg class="icon" aria-hidden="true" focusable="false"><use href=".../icons.svg#name"/></svg>
+// Stroke settings live here (they inherit into <use>), so every icon matches
+// and takes its colour from the surrounding text via currentColor.
+.icon {
+  --icon-stroke: 1.75;
+
+  display: inline-block;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--icon-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
+}

@@ -39,5 +39,6 @@ return [
         'edms'         => 'EDMS',
         'hrms'         => 'HRMS',
         'bi'           => 'BI',
+        'task-organizer' => 'منظّم المهام',
     ],
 ];

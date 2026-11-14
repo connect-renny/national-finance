@@ -1,0 +1,427 @@
+@use "../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Shell: the main site's purple page ground, with the whole dashboard
+//  (top bar, sidebar, main column) inside one curved white container —
+//  the same treatment as the main site's .site-shell (layout/_header.scss).
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Page ground: identical to the main site's body. The compiled file sits in
+// assets/dashboard/css/, so images are two levels up.
+body.dash {
+  background:
+    url("../../images/page-background-gradient.jpg") center top / max(100%, 960px) auto no-repeat,
+    linear-gradient(90deg, #5b0069 0%, #6f005f 50%, #810055 100%);
+  background-color: #5b0069;
+  color: var(--dash-ink);
+}
+
+.dash-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+// Mirror direction-bound icons (arrows, chevrons) on Arabic pages.
+[dir="rtl"] .dash-flip {
+  transform: scaleX(-1);
+}
+
+// The curved white container. Same gaps and corner radii as .site-shell;
+// there's no footer below it, so the top gap is repeated at the bottom.
+.dash-app {
+  --dash-shell-y: clamp(10px, 1.5vw, 29px);
+  --dash-shell-r-top: clamp(24px, 3.2vw, 62px);
+  --dash-shell-r-bottom: clamp(28px, 4.4vw, 84px);
+
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2 * var(--dash-shell-y));
+  min-height: calc(100dvh - 2 * var(--dash-shell-y));
+  margin: var(--dash-shell-y) var(--shell-gap);
+  background: var(--white);
+  border-radius: var(--dash-shell-r-top) var(--dash-shell-r-top)
+    var(--dash-shell-r-bottom) var(--dash-shell-r-bottom);
+  box-shadow: 0 24px 60px rgb(30 0 50 / 25%);
+  // clip (not hidden) keeps the sticky sidebar menu working.
+  overflow: clip;
+  overflow-clip-margin: 0;
+}
+
+// ─── Header ────────────────────────────────────────────────────────────────
+.dash-header {
+  position: relative;
+  z-index: var(--z-header);
+}
+
+.dash-header__bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--dash-bar);
+  padding: clamp(10px, 1vw, 16px) var(--dash-gutter);
+  background: var(--white);
+  border-bottom: 1px solid var(--dash-line);
+  box-shadow: 0 2px 10px rgb(20 10 60 / 5%);
+}
+
+.dash-brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--dash-ink);
+  @include focus-ring;
+
+  img {
+    width: auto;
+    height: 46px;
+  }
+
+  @include hover {
+    color: var(--color-brand);
+  }
+}
+
+.dash-brand__title {
+  padding-inline-start: 18px;
+  border-inline-start: 1px solid var(--dash-line);
+  font-size: 20px;
+  font-weight: var(--fw-bold);
+  line-height: 32px;
+
+  @include mq-down("sm") {
+    display: none;
+  }
+}
+
+.dash-tools {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.8vw, 12px);
+  margin-inline-start: auto;
+}
+
+.dash-tool {
+  position: relative;
+  @include flex-center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--dash-ink);
+  @include transEase((background-color, color, transform));
+  @include focus-ring;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+    color: var(--color-brand);
+  }
+
+  @include mq-down("sm") {
+    &:not(.dash-tool--support):not(:nth-child(2)) {
+      display: none; // keep support + bell on phones
+    }
+  }
+}
+
+.dash-tool__dot {
+  position: absolute;
+  top: 9px;
+  inset-inline-end: 10px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background: var(--nf-magenta);
+}
+
+.dash-lang {
+  padding: 5px 14px;
+  border: 1px solid #d9d4ec;
+  border-radius: var(--radius-pill);
+  font-family: var(--arabic-font);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  color: var(--color-brand);
+  @include transEase((background-color, color, border-color));
+  @include focus-ring;
+
+  &:lang(en) {
+    font-family: var(--primary-font);
+  }
+
+  @include hover {
+    border-color: transparent;
+    background: var(--dash-grad);
+    color: var(--white);
+  }
+}
+
+.dash-user {
+  padding-inline-start: clamp(6px, 1vw, 16px);
+  border-inline-start: 1px solid var(--dash-line);
+}
+
+.dash-user__toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--dash-ink);
+  font-size: 16px;
+  font-weight: var(--fw-medium);
+  @include transEase(background-color);
+
+  img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    @include transEase(transform);
+  }
+
+  &[aria-expanded="true"] .icon {
+    transform: rotate(180deg);
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+  }
+
+  @include mq-down("md") {
+    .dash-user__name,
+    .icon {
+      display: none;
+    }
+  }
+}
+
+// Bootstrap dropdowns (account menu, row menus).
+.dash .dropdown-menu {
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--dash-line);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgb(20 10 60 / 12%);
+  font-size: 15px;
+}
+
+.dash .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: var(--dash-ink);
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dash-tint);
+    color: var(--color-brand);
+  }
+
+  &:active {
+    background: var(--color-brand);
+    color: var(--white);
+  }
+}
+
+// Burger (shows below lg, opens the sidebar).
+.dash-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--dash-tint);
+
+  span {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-brand);
+    @include transEase((transform, opacity));
+  }
+
+  &[aria-expanded="true"] {
+    span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  @include mq-down("lg") {
+    display: flex;
+  }
+}
+
+// ─── Body: sidebar + main ──────────────────────────────────────────────────
+.dash-body {
+  display: flex;
+  flex: 1;
+  // Same pale-blue-to-white wash as the main site's inner pages
+  // (.page-inner .site-shell in pages/_inner.scss).
+  background: linear-gradient(180deg, #f3f8fe 0, #f3f8fe 180px, var(--white) 480px);
+}
+
+// Full height of the page; the menu sticks to the top while the page scrolls.
+.dash-sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--dash-sidebar);
+  // Floating rounded panel, inset from the page edges (as in the reference).
+  --dash-side-gap: clamp(12px, 1.2vw, 20px); // tighter than the header gutter
+
+  margin: var(--dash-side-gap);
+  margin-inline-end: 0;
+  padding: 40px 18px 24px;
+  border-radius: 28px;
+  // The corner that nests into the container's big bottom curve runs
+  // concentric with it (outer radius − gap), so the white gap stays even.
+  // Logical property, so it moves to the bottom-right on Arabic pages.
+  border-end-start-radius: max(28px, calc(var(--dash-shell-r-bottom) - var(--dash-side-gap)));
+  box-shadow: 0 14px 36px rgb(40 0 80 / 22%);
+  color: var(--white);
+  // Same ground as the main site's mobile drawer (.drawer__panel).
+  background:
+    radial-gradient(120% 40% at 100% 0%, rgb(28 0 160 / 80%), transparent 60%),
+    linear-gradient(160deg, #4b0a78 0%, #5b0069 55%, #9a004d 100%);
+
+  // Off-canvas below lg. dashboard.js toggles .is-open.
+  @include mq-down("lg") {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: var(--z-drawer);
+    margin: 0;
+    width: min(280px, 82vw);
+    overflow-y: auto;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    box-shadow: 0 0 40px rgb(20 0 60 / 35%);
+    transform: translateX(-105%);
+    visibility: hidden;
+    @include transEase((transform, visibility), var(--ease-out), 0.35s);
+
+    [dir="rtl"] & {
+      transform: translateX(105%);
+    }
+
+    &.is-open {
+      transform: none;
+      visibility: visible;
+    }
+  }
+}
+
+.dash-sidebar__nav {
+  position: sticky;
+  top: 40px;
+}
+
+// Plain white icon + label; the current page gets bold white text and a
+// small dot at the end. Hover brightens the row and nudges the icon.
+.dash-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.dash-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: var(--fw-medium);
+  color: rgb(255 255 255 / 78%);
+  @include transEase((background-color, color));
+  @include focus-ring(var(--white));
+
+  .icon {
+    width: 22px;
+    height: 22px;
+    --icon-stroke: 2;
+    transition: transform 0.4s var(--ease-spring);
+  }
+
+  span {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @include hover {
+    color: var(--white);
+    background: rgb(255 255 255 / 8%);
+
+    .icon {
+      transform: scale(1.12);
+    }
+  }
+
+  &[aria-current="page"] {
+    color: var(--white);
+    font-weight: var(--fw-bold);
+    background: rgb(255 255 255 / 12%);
+
+    &::after {
+      content: "";
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgb(255 255 255 / 18%);
+    }
+  }
+}
+
+.dash-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-drawer) - 1);
+  background: rgb(15 5 40 / 45%);
+
+  @include mq-up("lg") {
+    display: none;
+  }
+}
+
+.dash-main {
+  flex: 1;
+  min-width: 0;
+  padding: clamp(16px, 1.6vw, 28px) clamp(16px, 1.6vw, 28px) clamp(32px, 3vw, 56px);
+  outline: 0;
+}
+
+.dash-page {
+  max-width: 1440px;
+}

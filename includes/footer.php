@@ -45,7 +45,11 @@
         <p class="drawer__label" data-drawer-item style="--i: 7"><?= e($t['quick_access']) ?></p>
         <div class="drawer__apps" data-drawer-item style="--i: 8">
 <?php foreach ($t['apps'] as $slug => $label): ?>
+<?php if ($slug === 'task-organizer'): ?>
+          <a class="drawer__app--feature" href="dashboard/index.php"><span><svg class="icon" aria-hidden="true" focusable="false"><use href="<?= $a ?>assets/images/icons.svg#calendar-check" /></svg></span><?= e($label) ?></a>
+<?php else: ?>
           <a href="#"><span><img src="<?= $a ?>assets/images/icon-app-<?= $slug ?>.png" alt="" width="36" height="36" /></span><?= e($label) ?></a>
+<?php endif; ?>
 <?php endforeach; ?>
         </div>
 

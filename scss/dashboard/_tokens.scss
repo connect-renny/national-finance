@@ -1,0 +1,18 @@
+// Dashboard-only tokens. Brand colours come from base/root.
+:root {
+  --dash-bg: #f4f5fa;
+  --dash-line: #e3e5ef;
+  --dash-ink: #14123a;
+  --dash-muted: #5b5d72;
+  --dash-tint: #f3effa; // icon tiles, hovers
+  --dash-radius: 12px;
+  --dash-sidebar: 240px;
+  --dash-bar: 68px;
+  --dash-gutter: clamp(16px, 2.4vw, 44px);
+  --dash-shadow: 0 1px 2px rgb(20 10 60 / 4%), 0 4px 14px rgb(20 10 60 / 4%);
+
+  // Same magenta → purple as the home page app icons.
+  --dash-grad: linear-gradient(135deg, #d60a84 0%, #55127f 100%);
+  // Title text: the home page heading gradient (blue → purple → crimson).
+  --dash-grad-text: var(--nf-grad-text);
+}

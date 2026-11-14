@@ -512,6 +512,12 @@
       height: 24px;
     }
 
+    .icon {
+      width: 22px;
+      height: 22px;
+      color: var(--color-brand);
+    }
+
     @include hover {
       background: rgb(255 255 255 / 18%);
       transform: translateY(-2px);

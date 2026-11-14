@@ -461,22 +461,19 @@
 // ─── Apps row ──────────────────────────────────────────────────────────────
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(12px, 1.3vw, 24px);
   margin: 0;
   padding: 0;
   list-style: none;
 
-  @include mq-down("lg") {
+  // Six cards: one row from xl, then 3 + 3, then 2 + 2 + 2.
+  @include mq-down("xl") {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   @include mq-down("md") {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    li:last-child {
-      grid-column: 1 / -1;
-    }
   }
 }
 
@@ -607,6 +604,38 @@
     .app-card__icon {
       transform: rotate(-8deg) scale(1.08);
     }
+  }
+}
+
+// Task Organizer: the entry point to the staff dashboard. Highlighted at
+// rest (lavender fill + purple rim) so it stands out from the system links;
+// on hover it gets the same gradient flow as the rest of the row.
+.app-card--feature {
+  background: #f4eefb;
+  box-shadow:
+    inset 0 0 0 1.5px rgba(var(--color-brand-rgb), 0.38),
+    0 8px 20px rgba(var(--color-brand-rgb), 0.14);
+
+  .app-card__icon {
+    color: var(--color-brand);
+    border-color: rgba(var(--color-brand-rgb), 0.22);
+
+    .icon {
+      width: 62%;
+      height: 62%;
+    }
+  }
+
+  &:hover .app-card__icon,
+  &:focus-visible .app-card__icon {
+    color: var(--color-brand);
+  }
+
+  @include hover {
+    box-shadow:
+      inset 0 0 0 1.5px rgba(var(--color-brand-rgb), 0.38),
+      0 18px 34px rgb(75 10 120 / 26%),
+      0 6px 14px rgb(160 0 74 / 18%);
   }
 }
 

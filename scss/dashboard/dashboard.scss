@@ -1,0 +1,26 @@
+// ═══════════════════════════════════════════════════════════════════════════
+//  Staff dashboard — shared stylesheet → assets/dashboard/css/dashboard.css
+//
+//  Shares the main site's tokens, fonts and mixins; everything visual for the
+//  dashboard lives in this folder. Page-only styles go in pages/<page>.scss
+//  (compiled to assets/dashboard/css/pages/<page>.css) and are loaded only
+//  when the page sets $pageCss = true.
+//
+//  Build: npm run build (runs build:dashboard too)
+// ═══════════════════════════════════════════════════════════════════════════
+
+@use "../abstracts";
+
+@use "../base/root";
+// The compiled file sits in assets/dashboard/css/, two levels below the fonts.
+@use "../base/fonts" with (
+  $font-path: "../../fonts"
+);
+@use "../base/reset";
+@use "../base/typography";
+@use "../base/accessibility";
+@use "../components/icons";
+
+@use "tokens";
+@use "layout";
+@use "components";

@@ -40,5 +40,6 @@ return [
         'edms'         => 'EDMS',
         'hrms'         => 'HRMS',
         'bi'           => 'BI',
+        'task-organizer' => 'Task Organizer',
     ],
 ];

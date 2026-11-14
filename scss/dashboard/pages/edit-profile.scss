@@ -1,0 +1,300 @@
+@use "../../abstracts" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  Edit Profile + Change Profile Photo modal
+//  → assets/dashboard/css/pages/edit-profile.css
+// ═══════════════════════════════════════════════════════════════════════════
+
+.profile-edit {
+  max-width: 1080px;
+  padding: 0;
+}
+
+.profile-edit__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px clamp(18px, 2vw, 30px);
+  border-bottom: 1px solid var(--dash-line);
+}
+
+.profile-edit__back {
+  @include flex-center;
+  width: 38px;
+  height: 38px;
+  margin-inline-start: -8px;
+  border-radius: 50%;
+  color: var(--dash-ink);
+  @include transEase((background-color, color));
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+    color: var(--color-brand);
+  }
+}
+
+.profile-edit__title {
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: clamp(22px, 1.5vw, 26px);
+  color: var(--dash-ink);
+}
+
+.profile-edit__body {
+  display: grid;
+  gap: 28px;
+  padding: clamp(22px, 2.2vw, 36px) clamp(18px, 2vw, 30px);
+
+  @include mq-up("md") {
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 56px);
+  }
+}
+
+.profile-edit__photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  img {
+    width: 128px;
+    height: 128px;
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 8px 22px rgb(75 10 120 / 16%);
+  }
+}
+
+.profile-edit__change {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  color: #2d1fa0;
+  @include transEase((background-color, color));
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+    color: var(--nf-crimson);
+  }
+}
+
+// ─── Form: label column + field column ─────────────────────────────────────
+.profile-form {
+  display: grid;
+  gap: 14px;
+  max-width: 720px;
+}
+
+.profile-form__row {
+  display: grid;
+  gap: 6px;
+
+  @include mq-up("sm") {
+    grid-template-columns: 170px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+
+    &:has(textarea) {
+      align-items: start;
+
+      label {
+        padding-top: 10px;
+      }
+    }
+  }
+
+  label {
+    font-size: 15px;
+    color: var(--dash-ink);
+  }
+}
+
+.profile-form__req {
+  color: var(--nf-crimson);
+}
+
+.profile-form__opt {
+  color: var(--dash-muted);
+}
+
+.profile-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.profile-form__status {
+  flex: 1;
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-success);
+
+  &:empty {
+    display: none;
+  }
+}
+
+// ─── Change Profile Photo modal ────────────────────────────────────────────
+.photo-modal {
+  .modal-dialog {
+    max-width: 640px;
+  }
+
+  .modal-content {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgb(20 0 60 / 30%);
+    overflow: hidden;
+
+    // Same gradient band as the page header, slimmer.
+    &::before {
+      content: "";
+      height: 8px;
+      background: linear-gradient(90deg, #b0004a, #4b0a78 55%, #1c00a0);
+    }
+  }
+}
+
+.photo-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--dash-line);
+}
+
+.photo-modal__title {
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: 22px;
+  color: var(--dash-ink);
+}
+
+.photo-modal__close {
+  @include flex-center;
+  width: 38px;
+  height: 38px;
+  margin-inline-end: -8px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--dash-ink);
+  @include transEase((background-color, color, transform));
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  @include hover {
+    background: var(--dash-tint);
+    color: var(--nf-crimson);
+    transform: rotate(90deg);
+  }
+}
+
+.photo-modal__body {
+  display: grid;
+  gap: 22px;
+  align-items: center;
+  justify-items: center;
+  padding: 26px 24px 8px;
+
+  @include mq-up("sm") {
+    grid-template-columns: 150px minmax(0, 1fr);
+    justify-items: stretch;
+  }
+}
+
+.photo-modal__preview {
+  width: 150px;
+  height: 150px;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 22px rgb(75 10 120 / 16%);
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 26px 18px;
+  border: 1.5px dashed #b9c1dd;
+  border-radius: 10px;
+  background: #fbfbfe;
+  text-align: center;
+  cursor: pointer;
+  @include transEase((border-color, background-color));
+
+  &:hover,
+  &.is-over {
+    border-color: var(--color-brand);
+    background: var(--dash-tint);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
+  &.is-error {
+    border-color: var(--nf-crimson);
+  }
+}
+
+.dropzone__icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 4px;
+}
+
+.dropzone__text {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--dash-ink);
+}
+
+.dropzone__hint {
+  font-size: 13px;
+  color: var(--dash-muted);
+
+  .is-error & {
+    color: var(--nf-crimson);
+  }
+}
+
+.photo-modal__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px 24px;
+
+  .dash-btn {
+    min-width: 110px;
+  }
+}
