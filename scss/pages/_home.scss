@@ -1132,9 +1132,12 @@
   }
 }
 
+// Split card: photo panel + crimson content panel, side by side (stacked on
+// small screens). Nothing overlays the photo.
 .news-card {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
   height: 100%;
   min-height: clamp(340px, 21vw, 412px);
   color: var(--white);
@@ -1144,23 +1147,24 @@
   isolation: isolate;
 
   @include mq-down("md") {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    min-height: 0;
   }
 }
 
 .news-card__media {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 0;
-  z-index: -1;
-  width: 68%;
+  position: relative;
+  z-index: 1;
   overflow: hidden;
+  background: var(--nf-surface, #f1f2f6);
 
   img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left center;
+    object-position: center;
     transition: transform 1.2s var(--ease-out);
   }
 
@@ -1168,60 +1172,49 @@
     transform: scale(1.05);
   }
 
-  // RTL: the photo sits on the right, but its baked-in fade is on the
-  // photo's own right edge, so fade the left edge into the card instead.
-  @include mq-up("md") {
-    [dir="rtl"] & {
-      mask-image: linear-gradient(270deg, #000 62%, transparent 96%);
-    }
-  }
-
   @include mq-down("md") {
-    position: relative;
-    width: 100%;
     aspect-ratio: 16 / 10;
-    // The photo's own right-edge fade doesn't help when stacked — fade it
-    // into the card from the bottom instead.
-    mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
 
     img {
-      object-position: left top;
+      object-position: center top;
     }
   }
 }
 
-// Supplied line art (white, already ~17% alpha in the PNG — no extra
-// opacity). Scaled up and offset so its right-hand loop straddles the photo
-// edge and the tail sweeps up toward the top-right corner, as designed.
+// Supplied line art (white, already ~17% alpha in the PNG). Sits behind the
+// photo panel, so only the part crossing the content panel shows.
 .news-card__lines {
   position: absolute;
-  top: 46%;
-  left: -62%;
-  z-index: -1;
-  width: 175%;
+  top: 38%;
+  inset-inline-start: 0;
+  z-index: 0;
+  width: 150%;
   max-width: none;
   height: auto;
   pointer-events: none;
 
+  [dir="rtl"] & {
+    transform: scaleX(-1);
+  }
+
   @include mq-down("md") {
     top: auto;
-    bottom: -10%;
-    left: -120%;
-    width: 300%;
+    bottom: -12%;
+    inset-inline-start: -60%;
+    width: 260%;
   }
 }
 
 .news-card__body {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-inline-start: 56.8%;
-  padding-block: 40px;
-  padding-inline: 0 clamp(24px, 3vw, 56px);
+  padding: clamp(28px, 2.2vw, 44px) clamp(24px, 2.6vw, 52px);
 
   @include mq-down("md") {
-    margin: -40px 0 0;
-    padding: 0 24px 32px;
+    padding: 24px 24px 32px;
   }
 
   time {
