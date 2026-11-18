@@ -1,0 +1,962 @@
+/* ==========================================================================
+   Nafithah — landing page
+   Intro: scene fades in → NF mark draws in the frame and dissolves → full NF
+   logo flies to the top bar → Nafithah logo follows → the rest arrives in
+   turn, with the title typed out.
+   ========================================================================== */
+
+@font-face {
+  font-family: Cairo;
+  src: url("../fonts/Cairo-Arabic.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+060C, U+061B, U+061F;
+}
+@font-face {
+  font-family: Cairo;
+  src: url("../fonts/Cairo-Latin.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2010-2027, U+00A9;
+}
+@font-face {
+  font-family: "Foundry Form Sans";
+  src: url("../fonts/FoundryFormSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Foundry Form Sans";
+  src: url("../fonts/FoundryFormSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --aub-950: #12001a;
+  --aub-900: #1b0024;
+  --aub-800: #2a0032;
+  --aub-700: #3d0244;
+  --aub-600: #4b024e;
+  --crimson: #ca0033;
+  --rose: #ff2d6f;
+  --violet: #8a2be2;
+  --indigo: #2b19ff;
+  --navy: #0b0091;
+  --white: #fff;
+  --ink-soft: rgb(255 255 255 / 72%);
+  --ink-faint: rgb(255 255 255 / 14%);
+
+  --ar: Cairo, "Segoe UI", Tahoma, sans-serif;
+  --en: "Foundry Form Sans", "Segoe UI", system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.18, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Timeline (seconds after fonts are ready) */
+  --t-open: 0.35s;     /* intro cover fades, atmosphere fades in */
+  --t-mark: 1s;        /* NF mark starts drawing */
+  --t-mark-out: 3s;    /* NF mark scales up and fades out */
+  --t-brand: 3.2s;     /* full NF logo appears centre, then flies to the top bar */
+  --t-app: 5.3s;       /* Nafithah logo appears centre, then flies to the top bar */
+  --t-rest: 7.4s;      /* frame, ribbon and copy arrive one by one */
+  --t-ribbon: 7.5s;    /* ribbon starts drawing */
+  --t-type: 8.1s;      /* title starts typing */
+  --type-end: 3.3s;    /* typing length — landing.php sets the real value on <body> */
+
+  /* gentle curves for the intro */
+  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-glide: cubic-bezier(0.65, 0, 0.25, 1);
+
+  --mx: 50%;
+  --my: 40%;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+  background: var(--aub-900);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  overflow-x: clip;
+  font-family: var(--ar);
+  color: var(--white);
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--aub-700) 0%, var(--aub-800) 45%, var(--aub-950) 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   Atmosphere
+   -------------------------------------------------------------------------- */
+.atmos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.atmos__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+}
+.atmos__glow--crimson {
+  width: 55vmax;
+  height: 55vmax;
+  top: -18vmax;
+  left: -12vmax;
+  background: radial-gradient(circle, var(--crimson) 0%, transparent 65%);
+  animation: drift-a 22s ease-in-out infinite alternate;
+}
+.atmos__glow--indigo {
+  width: 60vmax;
+  height: 60vmax;
+  bottom: -28vmax;
+  right: -16vmax;
+  background: radial-gradient(circle, var(--indigo) 0%, transparent 62%);
+  opacity: 0.42;
+  animation: drift-b 26s ease-in-out infinite alternate;
+}
+.atmos__glow--violet {
+  width: 40vmax;
+  height: 40vmax;
+  top: 30%;
+  left: 35%;
+  background: radial-gradient(circle, var(--violet) 0%, transparent 65%);
+  opacity: 0.22;
+  animation: drift-a 30s ease-in-out -8s infinite alternate-reverse;
+}
+
+/* Perspective floor grid, fading toward the horizon */
+.atmos__grid {
+  position: absolute;
+  inset: 45% -50% -10%;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 7%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 7%) 1px, transparent 1px);
+  background-size: 72px 72px;
+  transform: perspective(600px) rotateX(62deg);
+  transform-origin: 50% 0;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 35%, #000 70%, transparent 100%);
+  animation: grid-run 6s linear infinite;
+}
+
+.atmos__sparks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cursor-follow light */
+.atmos__spot {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(520px circle at var(--mx) var(--my), rgb(255 70 140 / 13%), transparent 60%);
+  transition: opacity 0.6s;
+}
+
+/* Film grain keeps big gradients from banding */
+.atmos__grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1.2s steps(6) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Ribbon
+   -------------------------------------------------------------------------- */
+.ribbon-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ribbon-wrap {
+  position: absolute;
+  z-index: 1;
+  left: -12vw;
+  bottom: -7vw;
+  width: 124vw;
+  pointer-events: none;
+  transform: translate3d(var(--px, 0), var(--py, 0), 0) rotate(-3deg);
+  transition: transform 0.9s var(--ease-out);
+}
+
+.ribbon {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 18px 40px rgb(140 0 60 / 45%)) drop-shadow(0 0 60px rgb(60 20 255 / 25%));
+}
+
+.ribbon path {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+}
+
+.ribbon__cap {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* --------------------------------------------------------------------------
+   Shutters
+   -------------------------------------------------------------------------- */
+.intro-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 0%, var(--aub-700) 0%, var(--aub-800) 45%, var(--aub-950) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Top bar
+   -------------------------------------------------------------------------- */
+.topbar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(18px, 3vw, 36px) clamp(16px, 4vw, 64px) 0;
+}
+
+.topbar__brand {
+  display: block;
+}
+.topbar__brand img {
+  width: clamp(150px, 14vw, 210px);
+  height: auto;
+}
+
+/* Nafithah logo — same height as the National Finance logo (233×46 vs 1200×297) */
+.topbar__app {
+  position: relative;
+  width: clamp(120px, 11.2vw, 168px);
+  filter: drop-shadow(0 8px 22px rgb(0 0 0 / 35%));
+}
+.topbar__app img {
+  width: 100%;
+  height: auto;
+}
+/* A sheen that sweeps across the wordmark once it lands */
+.topbar__glint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 85%) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 150% 0;
+  mix-blend-mode: overlay;
+  -webkit-mask: url("../images/nafithah-logo.png") center / 100% 100% no-repeat;
+  mask: url("../images/nafithah-logo.png") center / 100% 100% no-repeat;
+}
+
+/* Logos start large in the centre of the frame and fly to their place.
+   JS measures the offset (--fx/--fy) and start scale (--fs). */
+.js-flip {
+  --fx: 0px;
+  --fy: 0px;
+  --fs: 1;
+  transform-origin: 50% 50%;
+}
+
+/* --------------------------------------------------------------------------
+   Stage
+   -------------------------------------------------------------------------- */
+.stage {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  padding: clamp(28px, 5vh, 64px) 16px clamp(48px, 9vh, 110px);
+}
+
+/* The window frame: a thin rounded pane with glowing corner brackets */
+.frame {
+  position: absolute;
+  inset: clamp(14px, 3vh, 34px) clamp(16px, 5vw, 96px) clamp(18px, 4vh, 48px);
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: clamp(24px, 3vw, 44px);
+  background: linear-gradient(180deg, rgb(255 255 255 / 3.5%), rgb(255 255 255 / 0%) 60%);
+  pointer-events: none;
+}
+.frame i {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-color: rgb(255 255 255 / 55%);
+  border-style: solid;
+  border-width: 0;
+}
+.frame i:nth-child(1) { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: inherit; }
+.frame i:nth-child(2) { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; border-top-right-radius: inherit; }
+.frame i:nth-child(3) { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; border-bottom-left-radius: inherit; }
+.frame i:nth-child(4) { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: inherit; }
+.frame i { border-radius: 0; }
+.frame i:nth-child(1) { border-top-left-radius: clamp(24px, 3vw, 44px); }
+.frame i:nth-child(2) { border-top-right-radius: clamp(24px, 3vw, 44px); }
+.frame i:nth-child(3) { border-bottom-left-radius: clamp(24px, 3vw, 44px); }
+.frame i:nth-child(4) { border-bottom-right-radius: clamp(24px, 3vw, 44px); }
+
+.stage__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+}
+
+/* Intro mark — the NF logo shape, centred in the frame. Only shown when it can animate. */
+.intro-mark {
+  position: absolute;
+  inset: clamp(14px, 3vh, 34px) clamp(16px, 5vw, 96px) clamp(18px, 4vh, 48px);
+  z-index: 2;
+  display: none;
+  place-items: center;
+  pointer-events: none;
+}
+.mark {
+  width: clamp(150px, 20vw, 280px);
+  height: auto;
+  overflow: visible;
+  opacity: 0;
+  filter: drop-shadow(0 0 18px rgb(255 255 255 / 35%)) drop-shadow(0 0 46px rgb(255 255 255 / 15%));
+}
+/* the gap is a touch longer than the path so no stray round cap shows before drawing */
+.mark__stroke {
+  stroke-dasharray: 1 1.05;
+  stroke-dashoffset: 1.03;
+}
+
+.eyebrow {
+  margin: 0 0 clamp(10px, 1.6vh, 18px);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.eyebrow span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 18px 8px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 5%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.eyebrow span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rose);
+  box-shadow: 0 0 0 0 rgb(255 45 111 / 70%);
+  animation: pulse 2.2s ease-out infinite;
+}
+
+/* Title */
+.title {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6.4vw, 6.4rem);
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-shadow: 0 6px 40px rgb(20 0 30 / 55%);
+}
+.title__line {
+  display: block;
+  padding-block: 0.04em;
+  white-space: nowrap; /* one row per line, so the typewriter reveals it cleanly */
+}
+.title .w {
+  display: inline-block;
+}
+
+/* Typewriter: each line is revealed from the reading-start side (right, RTL)
+   one step per character, with a caret riding the edge. Clipping the whole
+   line, not splitting it into letters, keeps the Arabic letters joined. */
+.tw {
+  position: relative;
+  display: inline-block;
+}
+.tw__text {
+  display: inline-block;
+}
+.tw::after {
+  content: "";
+  position: absolute;
+  top: 0.16em;
+  bottom: 0.1em;
+  left: 0;
+  width: 0.06em;
+  min-width: 3px;
+  margin-left: -0.08em;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--rose), var(--violet));
+  box-shadow: 0 0 14px rgb(255 45 111 / 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+.title__line--accent .w {
+  background: linear-gradient(100deg, #ff4b7d 0%, #ff2d6f 22%, #c03dff 50%, #6d6bff 72%, #ff4b7d 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  /* background-clip:text only paints inside the box — grow it to cover
+     Arabic descenders and dots, then cancel the extra space with margins */
+  padding: 0.12em 0.06em 0.3em;
+  margin: -0.12em -0.06em -0.3em;
+  filter: drop-shadow(0 6px 30px rgb(255 45 111 / 30%));
+  animation: shimmer 7s linear infinite;
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: clamp(14px, 2.4vh, 26px) 0 0;
+  font: 500 clamp(0.72rem, 0.95vw, 0.9rem) / 1.4 var(--en);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.tagline::before,
+.tagline::after {
+  content: "";
+  width: clamp(28px, 6vw, 80px);
+  height: 2px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(26px, 4.4vh, 46px);
+}
+
+/* --------------------------------------------------------------------------
+   Hero CTA — rotating gradient ring, periodic shine,
+   gradient wipe + arrow swap on hover
+   -------------------------------------------------------------------------- */
+.cta {
+  --tx: 0px;
+  --ty: 0px;
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--aub-800);
+  isolation: isolate;
+  background: conic-gradient(from var(--ang), var(--rose), #ffb3cb, var(--violet), var(--indigo), #9ad0ff, var(--rose));
+  transform: translate3d(var(--tx), var(--ty), 0);
+  transition: transform 0.5s var(--ease-out);
+  animation: spin 3.2s linear infinite;
+}
+
+/* soft bloom under the ring */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  z-index: -1;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(22px);
+  opacity: 0.95;
+  transition: opacity 0.4s, inset 0.4s;
+}
+.cta:hover::before {
+  inset: -16px;
+  opacity: 1;
+}
+
+.cta__face {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 76px;
+  padding-block: 0;
+  padding-inline: 38px 12px;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--white);
+  transition: color 0.45s var(--ease-out);
+}
+
+/* gradient wipe that floods the face on hover, from the reading-start side */
+.cta__face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(100deg, var(--crimson), var(--rose) 35%, var(--violet) 70%, var(--indigo));
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 0.6s var(--ease-in-out);
+}
+html[dir="rtl"] .cta__face::before {
+  clip-path: inset(0 0 0 100%);
+}
+.cta:hover .cta__face::before,
+.cta:focus-visible .cta__face::before {
+  clip-path: inset(0 0 0 0);
+}
+.cta:hover .cta__face,
+.cta:focus-visible .cta__face {
+  color: var(--white);
+}
+
+/* periodic glass shine */
+.cta__shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 75%) 46%, rgb(255 255 255 / 0%) 60%);
+  transform: translateX(-120%);
+  mix-blend-mode: soft-light;
+}
+
+.cta__text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: start;
+}
+.cta__label {
+  font: 900 1.45rem/1 var(--ar);
+}
+.cta__sub {
+  font: 500 0.68rem/1 var(--en);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.cta__icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--crimson), var(--violet) 60%, var(--indigo));
+  box-shadow: 0 6px 18px -4px rgb(202 0 51 / 60%);
+  transition: background 0.45s, color 0.45s, transform 0.5s var(--ease-spring);
+}
+.cta__icon svg {
+  grid-area: 1 / 1;
+  transition: transform 0.55s var(--ease-in-out);
+}
+/* second arrow waits off-side and slides in as the first leaves */
+.cta__icon svg + svg {
+  transform: translateX(160%);
+}
+.cta:hover .cta__icon {
+  color: var(--aub-800);
+  background: var(--white);
+  transform: scale(1.06);
+}
+.cta:hover .cta__icon svg:first-child {
+  transform: translateX(-160%);
+}
+.cta:hover .cta__icon svg + svg {
+  transform: translateX(0);
+}
+.cta:active {
+  transform: translate3d(var(--tx), var(--ty), 0) scale(0.97);
+}
+
+@property --ang {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* --------------------------------------------------------------------------
+   Bottom strip
+   -------------------------------------------------------------------------- */
+.strip {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 clamp(16px, 4vw, 64px) clamp(14px, 2.4vh, 26px);
+}
+
+.strip__copy {
+  flex: none;
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgb(255 255 255 / 50%);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .ribbon-wrap {
+    left: -78vw;
+    bottom: 4vh;
+    width: 250vw;
+    opacity: 0.7;
+  }
+  .atmos__grid {
+    background-size: 44px 44px;
+  }
+  .frame {
+    display: none;
+  }
+  .actions {
+    width: min(100%, 340px);
+  }
+  .cta,
+  .cta__face {
+    width: 100%;
+  }
+  .cta__face {
+    justify-content: space-between;
+    min-height: 70px;
+    padding-inline: 28px 10px;
+  }
+  .strip {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tagline {
+    gap: 10px;
+    letter-spacing: 0.16em;
+  }
+  .tagline::before,
+  .tagline::after {
+    width: 18px;
+  }
+  .title {
+    /* the longer line is ~9.4em wide — keep it inside the screen */
+    font-size: clamp(1.9rem, 8.6vw, 3.2rem);
+  }
+  .strip__copy {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-height: 640px) and (min-width: 768px) {
+  .title {
+    font-size: clamp(2.1rem, 4.8vw, 4.6rem);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Motion — only when allowed. Without JS (no .js class) everything simply
+   shows; with JS, items wait for `.go` (fonts ready) then play in sequence.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js .intro-cover {
+    display: block;
+  }
+  .js .intro-mark {
+    display: grid;
+  }
+  .js.go .intro-cover {
+    animation: cover-out 1.6s var(--ease-soft) var(--t-open) both;
+  }
+
+  /* 1. Scene fades in and scales down into place */
+  .js.go .atmos,
+  .js.go .ribbon-layer {
+    animation: scene-in 2.4s var(--ease-out) var(--t-open) both;
+  }
+
+  /* 2. NF mark draws on (main stroke, then the short dash), then scales up and fades */
+  .js.go .mark {
+    opacity: 1;
+    animation: mark-out 1.2s var(--ease-soft) var(--t-mark-out) forwards;
+  }
+  .js.go .mark__stroke--main {
+    animation: mark-draw 1.5s cubic-bezier(0.5, 0, 0.3, 1) var(--t-mark) both;
+  }
+  .js.go .mark__stroke--dash {
+    animation: mark-draw 0.6s var(--ease-soft) calc(var(--t-mark) + 1.3s) both;
+  }
+
+  /* 3 & 4. Full NF logo, then the Nafithah logo: appear centre, fly home */
+  .js.go .topbar__brand {
+    animation: flip-in 2.6s var(--t-brand) both;
+  }
+  .js.go .topbar__app {
+    animation: flip-in 2.6s var(--t-app) both;
+  }
+  .js.go .topbar__glint {
+    animation: glint 1.6s var(--ease-in-out) calc(var(--t-app) + 2.5s) both;
+  }
+
+  /* 5. The rest, one by one */
+  .js.go .frame {
+    animation: frame-in 1.9s var(--ease-out) var(--t-rest) both;
+  }
+
+  /* Ribbon draws on — slowed by 1.5x from the home hero for drama */
+  .js.go .ribbon path {
+    animation: draw calc(var(--t) * 1.5) linear calc(var(--d) * 1.5 + var(--t-ribbon)) both;
+  }
+  .js.go .ribbon__cap {
+    animation: cap 0.7s var(--ease-spring) calc(var(--d) * 1.5 + var(--t-ribbon)) both;
+  }
+  .js.go .ribbon {
+    animation: float 9s ease-in-out calc(var(--t-ribbon) + 4.2s) infinite;
+  }
+
+  .js.go .eyebrow {
+    animation: rise 1.3s var(--ease-out) calc(var(--t-rest) + 0.35s) both;
+  }
+
+  /* 6. Title types out, line by line */
+  .js.go .tw__text {
+    animation:
+      type var(--tw-dur) steps(var(--n), end) calc(var(--t-type) + var(--tw-dl)) both,
+      type-done 0s linear calc(var(--t-type) + var(--tw-dl) + var(--tw-dur)) forwards;
+  }
+  .js.go .tw::after {
+    animation:
+      caret-move var(--tw-dur) steps(var(--n), end) calc(var(--t-type) + var(--tw-dl)) forwards,
+      caret-hide 0.25s linear calc(var(--t-type) + var(--tw-dl) + var(--tw-dur) + 0.15s) forwards;
+  }
+  /* the last caret blinks a few times before it goes */
+  .js.go .title__line:last-child .tw::after {
+    animation:
+      caret-move var(--tw-dur) steps(var(--n), end) calc(var(--t-type) + var(--tw-dl)) forwards,
+      caret-blink 0.6s steps(1, end) calc(var(--t-type) + var(--tw-dl) + var(--tw-dur)) 4,
+      caret-hide 0.4s linear calc(var(--t-type) + var(--tw-dl) + var(--tw-dur) + 2.4s) forwards;
+  }
+  .js.go .title__line--accent .w {
+    animation: shimmer 7s linear calc(var(--t-type) + var(--type-end) + 1.4s) infinite;
+  }
+
+  .js.go .tagline {
+    animation: rise 1.4s var(--ease-out) calc(var(--t-type) + var(--type-end) + 0.6s) both;
+  }
+  .js.go .actions {
+    animation: rise 1.4s var(--ease-out) calc(var(--t-type) + var(--type-end) + 0.9s) both;
+  }
+  .js.go .strip {
+    animation: rise 1.4s var(--ease-out) calc(var(--t-type) + var(--type-end) + 1.2s) both;
+  }
+
+  .cta__icon svg:first-child {
+    animation: nudge 2.4s var(--ease-in-out) 3s infinite;
+  }
+  .cta:hover .cta__icon svg:first-child {
+    animation: none;
+  }
+  .cta__shine {
+    animation: shine 4.5s var(--ease-in-out) 3.5s infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmos__glow,
+  .atmos__grid,
+  .atmos__grain,
+  .cta,
+  .title__line--accent .w,
+  .eyebrow span::before {
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes
+   -------------------------------------------------------------------------- */
+@keyframes cover-out {
+  from { opacity: 1; visibility: visible; }
+  to { opacity: 0; visibility: hidden; }
+}
+@keyframes scene-in {
+  from { opacity: 0; transform: scale(1.12); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes frame-in {
+  from { opacity: 0; transform: scale(0.92, 0.6); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes cap {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-14px) rotate(0.4deg); }
+}
+@keyframes mark-draw {
+  from { stroke-dashoffset: 1.03; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes mark-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.5); }
+}
+/* appear in the centre (0–32%), hold (32–44%), glide to the resting place (44–100%) */
+@keyframes flip-in {
+  0% {
+    opacity: 0;
+    transform: translate(var(--fx), var(--fy)) scale(calc(var(--fs) * 0.92));
+    animation-timing-function: var(--ease-soft);
+  }
+  32% {
+    opacity: 1;
+    transform: translate(var(--fx), var(--fy)) scale(var(--fs));
+  }
+  44% {
+    opacity: 1;
+    transform: translate(var(--fx), var(--fy)) scale(var(--fs));
+    animation-timing-function: var(--ease-glide);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes glint {
+  from { background-position: 150% 0; }
+  to { background-position: -60% 0; }
+}
+/* the left inset shrinks 100% → 0, so the line appears from the right (RTL start) */
+@keyframes type {
+  /* fully closed at the start (right inset 0, left 100%), otherwise a sliver of the glow
+     margin shows where each line begins; the right margin opens up as it types */
+  from { clip-path: inset(-0.5em 0 -0.7em 100%); }
+  to { clip-path: inset(-0.5em -0.6em -0.7em 0%); }
+}
+@keyframes type-done {
+  to { clip-path: none; }
+}
+@keyframes caret-move {
+  from { left: 100%; opacity: 1; }
+  to { left: 0%; opacity: 1; }
+}
+@keyframes caret-blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+}
+@keyframes caret-hide {
+  from { left: 0%; opacity: 1; }
+  to { left: 0%; opacity: 0; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes shimmer {
+  from { background-position: 0% 0; }
+  to { background-position: -220% 0; }
+}
+@keyframes spin {
+  to { --ang: 360deg; }
+}
+@keyframes nudge {
+  0%, 60%, 100% { translate: 0 0; }
+  30% { translate: -5px 0; }
+}
+@keyframes shine {
+  0% { transform: translateX(-120%); }
+  35%, 100% { transform: translateX(120%); }
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgb(255 45 111 / 70%); }
+  80%, 100% { box-shadow: 0 0 0 12px rgb(255 45 111 / 0%); }
+}
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(8vw, 6vh, 0) scale(1.15); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.05); }
+  to { transform: translate3d(-10vw, -8vh, 0) scale(0.92); }
+}
+@keyframes grid-run {
+  from { background-position: 0 0; }
+  to { background-position: 0 72px; }
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-6%, 4%); }
+  40% { transform: translate(5%, -7%); }
+  60% { transform: translate(-3%, 8%); }
+  80% { transform: translate(7%, 3%); }
+  100% { transform: translate(0, 0); }
+}
